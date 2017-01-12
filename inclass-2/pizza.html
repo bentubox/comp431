@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en-US"/>
+<head>
+	<meta name="author" content="Ben Tu"/>
+</head>
+<body>
+	<form id="PizzaForm" method="POST" onsubmit="window.alert('Form validated.'); return false;">
+		<h1>PIZZA ORDER FORM</h1>
+		<p>Name: <input type="text" name="name" placeholder="Name" required></p>
+		<p>Address: <input type="text" name="name" placeholder="#### Street Name" pattern="\d{4}\s.+" required></p>
+		<p>Phone Number: <input type="tel" name="phone" placeholder="###-###-####" pattern="\d{3}-\d{3}-\d{4}" required></p>
+		<p>
+			Pizza Size: <input type="radio" name="size" value="Large" required>LARGE</input>
+			<input type="radio" name="size" value="Medium">MEDIUM</input>
+			<input type="radio" name="size" value="Small">SMALL</input>
+		</p>
+		<p>
+			Pizza Toppings: <input type="checkbox" name="toppings" value="Sausage">Sausage</input>
+			<input type="checkbox" name="toppings" value="Pepperoni">Pepperoni</input>
+			<input type="checkbox" name="toppings" value="Olives">Olives</input>
+			<input type="checkbox" name="toppings" value="Anchovies">Anchovies</input>
+			<input type="checkbox" name="toppings" value="Onions">Onions</input>
+		</p>
+		<input type="submit" value="ORDER">
+		<input type="reset" value="CLEAR">
+	</form>
+</body>
