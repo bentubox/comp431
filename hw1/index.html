@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en-US"/>
+<head>
+	<meta name="author" content="Ben Tu"/>
+</head>
+<body>
+	<form id="RegistrationForm" name="myForm" method="GET" action="formProcessor.html" onsubmit="return validateForm()">
+		<h1>NEW USER REGISTRATION</h1>
+		<p>Account Name*: <input type="text" name="usrname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required></p>
+		<p>Display Name: <input type="text" name="name" placeholder="Display Name"></p>
+		<p>Email Address*: <input type="email" name="email" placeholder="name@host" required></p>
+		<p>Phone Number*: <input type="tel" name="phone" placeholder="###-###-####" pattern="\d{3}-\d{3}-\d{4}" required></p>
+		<p>Date of Birth*: <input type="date" name="dob" required></p>
+		<p>Zip Code*: <input type="text" name="zip" placeholder="#####" pattern="[0-9]{5}" required></p>
+		<p>Password*: <input type="password" name="password" placeholder="Password" required></p>
+		<p>Password Confirmation*: <input type="password" name="passwordconfirm" placeholder="Confirm Password" required></p>
+		<input type="hidden" name="timestamp" value="">
+		<p><font color="red">*required field</font></p>
+		<input type="submit" value="Create Account">
+		<input type="reset" value="Clear Form">
+	</form>
+</body>
+<script>
+	function validateForm(){
+		// Check date of birth.
+		var dob = new Date(document.forms["myForm"]["dob"].value);
+		var today = new Date();
+
+		var yearDiff = today.getFullYear() - dob.getFullYear();
+		var monthDiff = today.getMonth() - dob.getMonth();
+		var dayDiff = today.getDate() - dob.getDate();
+
+		// console.log(yearDiff);
+		// console.log(monthDiff);
+		// console.log(dayDiff);
+
+		if(yearDiff < 18){
+			window.alert("Only individuals who are of age 18 or above are allowed to register!");
+			return false;
+		} else if(yearDiff == 18){
+			if(monthDiff < 0){
+				window.alert("Only individuals who are of age 18 or above are allowed to register!");
+				return false;
+			} else if(monthDiff == 0){
+				if(dayDiff < 0){
+					window.alert("Only individuals who are of age 18 or above are allowed to register!");
+					return false;
+				}
+			}
+		}
+
+		// Check password matching.
+		var pass1 = document.forms["myForm"]["password"];
+		var pass2 = document.forms["myForm"]["passwordconfirm"];
+		if(pass1.value != pass2.value){
+			window.alert("Passwords do not match!");
+			return false;
+		}
+		// Set hidden field.
+		document.forms["myForm"]["timestamp"].value = new Date();
+		// window.alert("Form validated!");
+		return true;
+	}
+</script>

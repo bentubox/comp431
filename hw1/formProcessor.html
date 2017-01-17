@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en-US"/>
+<head>
+	<meta name="author" content="Ben Tu"/>
+</head>
+<body onload="fillTable()">
+	<table>
+		<tr>
+			<th>FIELD</th>
+			<th>VALUE</th>
+		</tr>
+		<tr>
+			<td><b>user name</b></td>
+			<td id="usrname"></td>
+		</tr>
+		<tr>
+			<td><b>display name</b></td>
+			<td id="name"></td>
+		</tr>
+		<tr>
+			<td><b>email address</b></td>
+			<td id="email"></td>
+		</tr>
+		<tr>
+			<td><b>phone number</b></td>
+			<td id="phone"></td>
+		</tr>
+		<tr>
+			<td><b>date of birth</b></td>
+			<td id="dob"></td>
+		</tr>
+		<tr>
+			<td><b>zipcode</b></td>
+			<td id="zip"></td>
+		</tr>
+		<tr>
+			<td><b>password</b></td>
+			<td id="pass"></td>
+		</tr>
+		<tr>
+			<td><b>timestamp</b></td>
+			<td id="timestamp"></td>
+		</tr>
+	</table>
+</body>
+<script>
+	function fillTable(){
+		var url = window.location.search
+		var query = url.substring(url.indexOf("?") + 1);
+		var pairs = query.split("&");
+
+		// console.log(query);
+
+		// Populate table with entries.
+		for(var i = 0; i < pairs.length; i++){
+			var entries = pairs[i].split("=");
+			switch(entries[0]){
+				case "usrname":
+					document.getElementById("usrname").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "name":
+					document.getElementById("name").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "email":
+					document.getElementById("email").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "phone":
+					document.getElementById("phone").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "dob":
+					document.getElementById("dob").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "zip":
+					document.getElementById("zip").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "password":
+					document.getElementById("pass").innerHTML = decodeURIComponent(entries[1]);
+					break;
+				case "timestamp":
+					document.getElementById("timestamp").innerHTML = decodeURIComponent(entries[1]);
+					break;
+			}
+		}
+
+	}
+</script>
