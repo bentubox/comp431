@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US"/>
+<head>
+	<meta name="author" content="Ben Tu"/>
+</head>
+<body onload="go()">
+	<h1>BEN TU</h1>
+	<span id="indicator">
+		15
+	</span>
+	<button onclick="pause()">PAUSE</button>
+	<button onclick="resume()">RESUME</button>
+
+	<p>The purpose of this text is to meet the text requirement of this assignment.</p>
+
+	<img src="https://upload.wikimedia.org/wikipedia/commons/b/b1/Loading_icon.gif" alt="Something went wrong.">
+
+	<p><a href="http://www.epicurious.com/recipes/food/views/eggplant-dip-baba-ghanoush-51121500">LINK</a></p>
+
+	<textarea id="myTextArea" rows="20" cols="100" placeholder="pls repsond with your onw recipes :))))"></textarea>
+
+	<button>SUBMIT</button>
+	<button onclick="clearText()">CLEAR</button>
+</body>
+<script>
+	var countdown = setInterval(function(){decrementAndCheck()}, 1000);
+	function go(){
+		setTimeout(function(){window.alert("The page will redirect when the counter reaches 0.")}, 5000);
+	}
+	function decrementAndCheck(){
+		var indicator = document.getElementById("indicator").innerHTML;
+		console.log(indicator);
+		document.getElementById("indicator").innerHTML = indicator - 1;
+		if(indicator == 0){
+			clearInterval(countdown);
+			window.location.assign("https://www.clear.rice.edu/comp431/sample/hello.html");
+		}
+	}
+	function pause(){
+		clearInterval(countdown);
+	}
+	function resume(){
+		countdown = setInterval(function(){decrementAndCheck()}, 1000);
+	}
+	function clearText(){
+		document.getElementById("myTextArea").value= "";
+	}
+</script>
