@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+    <title>in class exercise 3</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Ben Tu">
+    <script type="text/javascript" src="avoid.js"></script>
+</head>
+<style type="text/css">
+	#congrats {
+		width: 300px;		
+		position: relative;
+		display: table;
+		margin: 0 auto;
+
+		border-radius: 16px;
+		border: solid;
+		background-color: lime;
+		border-color: red;
+		border-width: 8px;
+		color: blue;
+		vertical-align: middle;
+		text-align: center;
+		font-size: 30px;
+		font-family: Tahoma, Arial, sans-serif;
+	}
+
+	p {
+		margin: 0px;
+	}
+</style>
+<body>
+	<div id="congrats" style="display: none">
+		<p>Congratulations!<br> You Won!</p>
+	</div>
+	<div id="wrapper" position="relative" display="block">
+		<button type="button" id="clickme" position="absolute" display="block" onmouseover="moveButton()" onclick="end_game()">CLICK ME</button>
+	</div>
+</body>
