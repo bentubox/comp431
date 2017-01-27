@@ -4,8 +4,49 @@
     <title>PROFILE PAGE</title>
     <meta charset="utf-8">
     <meta name="author" content="Ben Tu">
+    <script type="text/javascript" src="profile.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-
-
+	<h1>MY PROFILE</h1>
+	<p><a href="main.html">HOME</a></p>
+	<div id="display">
+		<div id="name">
+			<div id="fieldName">Display Name: </div>
+			<div id="oldName">Bob Evans</div>
+			<input type="text" id="newName" rows="1" cols="24" placeholder="New Name"></textarea>
+		</div>
+		<div id="email">
+			<div id="fieldEmail">Email: </div>
+			<div id="oldEmail">bobe@yabba.org</div>
+			<input type="email" id="newEmail" rows="1" cols="24" placeholder="New Email"></textarea>
+		</div>
+		<div id="phone">
+			<div id="fieldPhone">Phone Number: </div>
+			<div id="oldPhone">800-800-8000</div>
+			<input type="phone" id="newPhone" rows="1" cols="16" placeholder="New Phone" pattern="\d{3}-\d{3}-\d{4} | \d{10}"></textarea>
+		</div>
+		<div id="zip">
+			<div id="fieldZip">Zipcode: </div>
+			<div id="oldZip">80000</div>
+			<input type="text" id="newZip" rows="1" cols="5" placeholder="New Zipcode" pattern="\d{5}"></textarea>
+		</div>
+		<div id="password">
+			<div id="fieldPassword">Password: </div>
+			<div id="oldPassword" style="display: none">lolpassword</div>
+			<div id="hidePassword">&#8226&#8226&#8226&#8226&#8226&#8226&#8226&#8226&#8226&#8226&#8226</div>
+			<input type="password" id="newPassword" rows="1" cols="24" placeholder="New Password"></textarea>
+			<input type="password" id="newPasswordConfirm" rows="1" cols="24" placeholder="Confirm Password"></textarea>
+		</div>
+	</div>
+	<div id="info">
+		<div id="infoName"></div>
+		<div id="infoEmail"></div>
+		<div id="infoPhone"></div>
+		<div id="infoZip"></div>
+		<div id="infoPassword"></div>
+	</div>
+	<div id="buttons">
+		<button type="button" id="update" onclick="updateInfo()">UPDATE</button>
+	</div>
 </body>

@@ -1,0 +1,47 @@
+h1{
+
+}
+
+div {
+	display: inline;
+}
+
+table, th, td {
+   border: 1px solid black;
+   padding: 5px;
+}
+
+td {
+	border-radius: 8px;
+	min-width: 750px;
+	min-height: 500px;
+}
+
+/* Profile Page*/
+#display {
+	display: inline-table;
+	border-collapse: collapse;
+	border-spacing: 3px; 
+}
+
+#name, #email, #phone, #zip, #password {
+	display: table-row;
+}
+
+#newName, #newEmail, #newPhone, #newZip, #newPassword, #newPasswordConfirm {
+	margin: 8px;
+}
+
+#info{
+	display: block;
+	height: 100px;
+	margin: 3px;
+}
+
+#infoName, #infoEmail, #infoPhone, #infoZip, #infoPassword {
+	display: block;
+}
+
+#buttons{
+	display: block;
+}
