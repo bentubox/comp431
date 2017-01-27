@@ -1,31 +1,108 @@
 h1{
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-size: 50px;
+	background-color: black;
+	color: white;
+	margin: auto;
+	padding: 10px 10px 10px 25px;
+}
 
+a {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	background-color: black;
+	color: white;
+	display: block;
+	margin: auto;
+	padding: 10px 10px 10px 25px;;
+}
+
+a:hover {
+	color: yellow;
 }
 
 div {
 	display: inline;
 }
 
+p {
+	padding: 5px;
+}
+
 table, th, td {
    border: 1px solid black;
    padding: 5px;
+   background-color: rgb(239, 235, 220);
+   font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+   font-weight: bold;
 }
 
 td {
 	border-radius: 8px;
+	border-width: 3px;
+	background-color: rgb(232, 224, 201);
+	border-color: rgb(143, 112, 112);
 	min-width: 750px;
 	min-height: 500px;
+}
+
+img {
+	display: block;
+	border-style: double;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+button {
+	display: block;
+	margin-top: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 8px;
+
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-weight: bold;
+	font-size: 24px;
+
+	background-color: transparent;
+	border-width: 3px;
+	border-style: solid;
+	border-radius: 5px;
+	border-color: rgb(143, 112, 112);
+
+}
+
+button:hover {
+	border-color: white; 
+	color: white;
+}
+
+button:active {
+	border-color: rgb(188, 169, 169); 
+	color: rgb(188, 169, 169);
+}
+
+.picDiv{
+	text-align: center;
 }
 
 /* Profile Page*/
 #display {
 	display: inline-table;
 	border-collapse: collapse;
-	border-spacing: 3px; 
+	border-spacing: 3px;
+	margin-left: 30px;
 }
 
 #name, #email, #phone, #zip, #password {
 	display: table-row;
+}
+
+#fieldName, #fieldEmail, #fieldPhone, #fieldZip, #fieldPassword {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-weight: bold;
+	background-color: yellow;
+	margin-right: 10px; 
 }
 
 #newName, #newEmail, #newPhone, #newZip, #newPassword, #newPasswordConfirm {
@@ -35,13 +112,44 @@ td {
 #info{
 	display: block;
 	height: 100px;
-	margin: 3px;
+	margin: 20px 0px 10px 0px;
+	padding: 5px;
+	background-color: black;
+}
+
+#info:hover {
+	font-weight: bold;
 }
 
 #infoName, #infoEmail, #infoPhone, #infoZip, #infoPassword {
 	display: block;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	font-size: 18px;
 }
 
 #buttons{
 	display: block;
+	border-style: solid;
+	border-width: 3px;
+	border-color: black;
+	margin: auto;
+	padding: 5px;
+	text-align: center;
+}
+
+#update {
+	font-size: 24px;
+	font-weight: bold;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	background-color: red;
+	border-color: rgb(150, 0, 0);
+	margin: auto;
+	width: 80%;
+	height: 90%
+}
+
+#update:hover{
+	color: white;
+	background-color: rgb(255, 77, 77);
+	border-color: rgb(250, 0, 0);
 }
