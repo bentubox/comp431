@@ -25,7 +25,17 @@ function createElement(node) {
         e = document.createElement(node.tag);
         if (typeof node.props !== 'undefined'){
             for (var i = 0; i < Object.keys(node.props).length; i++) {
-                var att = document.createAttribute(Object.keys(node.props)[i]); 
+                var att
+                if (Object.keys(node.props)[i] === "className"){
+                    att = document.createAttribute("class");
+                } else if(Object.keys(node.props)[i] === "onclick" || Object.keys(node.props)[i] === "onClick"){
+                    console.log("Registering event handler", Object.values(node.props)[i])
+                    e.addEventListener("click", Object.values(node.props)[i], false);
+                    e.addEventListener("click", update)
+                    att = document.createAttribute(Object.keys(node.props)[i]); 
+                } else{
+                    att = document.createAttribute(Object.keys(node.props)[i]); 
+                }
                 att.value = Object.values(node.props)[i]
                 e.setAttributeNode(att)
             };
@@ -35,10 +45,6 @@ function createElement(node) {
                 e.appendChild(createElement(node.children[i]))
             };
         }
-        if (e.hasAttribute("onclick")){
-            // console.log("Setting event handler")
-            e.addEventListener("click", e.getAttribute("onclick"));
-        } 
     } 
     console.log(e)
 	return e
@@ -61,17 +67,21 @@ function updateElement(parent, newNode, oldNode, index=0) {
 	// ideally we also handle inserts, but ignore that functionality for now.
 
     if (!oldNode) {
-        console.log('no old child')
+        console.log('no oldNode')
         parent.appendChild(createElement(newNode))
     } else {
     	console.log('update element that may have changed')
+        console.log('parent', parent, 'new', newNode, 'old', oldNode)
     	// you can use my changed(node1, node2) method above
     	// to determine if an element has changed or not
         if (changed(newNode, oldNode)){
-            parent.replaceChild(createElement(newNode), createElement(oldNode))
+            var node = createElement(newNode)
+            for (var i = index; i < node.childNodes.length; i++) {
+                // updateElement(node.childNodes[i], )
+            };
+            parent.replaceChild(node, createElement(oldNode))
         }
     	// be sure to also update the children!
-        
     }
 }
 
