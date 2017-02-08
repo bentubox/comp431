@@ -4,6 +4,10 @@ body {
     background-attachment: fixed;
 }
 
+div {
+    text-align: center;
+}
+
 canvas {
         position: fixed;
         right: 0;
@@ -11,7 +15,7 @@ canvas {
         top: 1em;
         bottom: 1em;
         margin: auto;
-        margin-left: 8em;
+        margin-left: 20em;
         background-color: white; 
 
         border-style: solid;
@@ -22,6 +26,49 @@ canvas {
         cursor: none;
 }
 
+.info {
+    width: 12em;
+    margin: 1em;
+    text-align: center;
+    overflow-x: auto; 
+    padding: 10px;
+
+    font-weight: bold;
+    font-size: 20px;
+}
+
 img {
     position: relative;
+    display: block;
+    margin: auto;
+    padding: 10px;
+}
+
+#bomb {
+    min-width: 144px;
+    min-height: 144px;
+}
+
+button {
+    position: relative;
+    display: block;
+    padding: 10px;
+    margin: 3px;
+}
+
+#restart {
+    font-weight: bold;
+    font-size: 20px;
+    width: 15em;
+    border-width: 5px;
+}
+
+#restart:hover {
+    border-style: solid;
+    border-color: white;
+    color: white;
+}
+
+#add {
+    display: inline=block;
 }
