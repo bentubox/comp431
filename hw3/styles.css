@@ -1,0 +1,27 @@
+body {
+    background-image: url("resources/background.png");
+    background-position: right top;
+    background-attachment: fixed;
+}
+
+canvas {
+        position: fixed;
+        right: 0;
+        left: 0;
+        top: 1em;
+        bottom: 1em;
+        margin: auto;
+        margin-left: 8em;
+        background-color: white; 
+
+        border-style: solid;
+        border-radius: 8px;
+        border-width: 8px;
+        border-color: black;
+
+        cursor: none;
+}
+
+img {
+    position: relative;
+}
