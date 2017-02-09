@@ -4,27 +4,28 @@ var app
 
 var createApp = function(canvas) { 
 	var c = canvas.getContext("2d")
-
  	// World variables.
     var floor = canvas.height * 0.2
 	var initialObjectCount = 8
+	var lowerHook = false
 	var hooked = false
+	var scoreWidth = 420
+	var scoreHeight = 250
 	// Distribution of ocean entities.
 	var goldProb = 0.3
 	var jellyProb = 0.7
-
 	// Offset from floor where ocean entities can't spawn.
 	var floorOffset = 100
-
 	// Entity speed constants.
 	var varSpeed = 7
 	var minSpeed = 3
-
 	// Metrics
-	var score = 0;
-	var fishLost = 0;
-	var fastestCatch = null
-
+	var score = 0
+	var fishLost = 0
+	var jelliesKilled = 0
+	var highScore = 0
+	var highFish = 0
+	var highJellies = 0
 	// Image frame arrays.
 	var fishFrames = [
 						"resources/gold/goldfish0.png",
@@ -55,15 +56,12 @@ var createApp = function(canvas) {
 						"resources/hazard/c41.png"
 					]
 	var impactFrames = ["resources/bang/impact_0.png", "resources/bang/impact_1.png", "resources/bang/impact_2.png"]
-
 	var fishIcon = document.getElementById("fish")
 	var jellyIcon = document.getElementById("jelly")
 	var bombIcon = document.getElementById("bomb")
-
 	var indexF = 0
 	var indexJ = 0
 	var indexB = 0
-
 	// Helper functions for positioning elements correctly.
 	var getPosition = function(element) {
 		var xPos = 0
@@ -91,6 +89,12 @@ var createApp = function(canvas) {
 		return (e.width + e.height) * e.scale / 2
 	}
 
+	// Check if entity is in scoring zone.
+	var isRetrievable = function(e){
+		return (e.x + e.width * e.scale / 3 > canvas.width - scoreWidth && e.x - e.width * e.scale / 3 < canvas.width
+			 && e.y + e.height * e.scale / 3 > 0 && e.y - e.height * e.scale / 3 < scoreHeight)
+	}
+
 	var cacheImage = function(imgArray){
 		return imgArray.map(function(src){
 			var img = new Image();
@@ -99,22 +103,36 @@ var createApp = function(canvas) {
 		});
 	};
 
-	// EventListener for polling mpuse location.
+	cacheImage(impactFrames)
+	
+	// EventListener for polling mouse location.
 	var mouse = { x:0, y:floor }
 	canvas.addEventListener("mousemove", function(e){
 		mouse.x = e.clientX - getPosition(canvas).x
 		mouse.y = e.clientY - getPosition(canvas).y
 	}, false);
 
+	var hookDown = function(){
+		lowerHook = true
+	}
+
+	var hookUp = function(){
+		lowerHook = false
+	}
+
 	// World objects.
-	var fisherman = {image:document.getElementById("fisherman"), x:canvas.width, y:0, width:800, height:600, scale:0.5 }
-	var hook = { image:document.getElementById("hook"), x:canvas.width * 0.5, y:canvas.height * 0.5, width:88, height:160, scale:0.5 }
-	var sinker = { image:document.getElementById("sinker"), x:canvas.width * 0.5, y:canvas.height * 0.4, width: 42, height:140, scale: 0.3 }
-	var bobber = { image:document.getElementById("bobber"), x:canvas.width * 0.5, y:floor, width:80, height:128, scale:0.5 }
+	var fisherman = {image:new Image(), x:canvas.width, y:0, width:800, height:600, scale:0.5 }
+	fisherman.image.src="resources/fisherman.png"
+	var hook = { image:new Image(), x:canvas.width * 0.5, y:canvas.height, width:88, height:160, scale:0.5 }
+	hook.image.src="resources/hook.png" 
+	var sinker = { image:new Image(), x:canvas.width * 0.5, y:canvas.height * 0.4, width: 42, height:140, scale: 0.3 }
+	sinker.image.src="resources/sinker.png"
+	var bobber = { image:new Image(), x:canvas.width * 0.5, y:floor, width:80, height:128, scale:0.5 }
+	bobber.image.src="resources/bobber.png"
 	var oceanContents = []
 
 	var generateFish = function(){
-		return { 
+		var newFish = { 
 				id:"fish",
 				image:new Image(),
 				frames:fishFrames,
@@ -129,10 +147,12 @@ var createApp = function(canvas) {
 				caught: false,
 				destroyed: false
 			};
+		newFish.image.src = newFish.frames[0]
+		return newFish
 	}
 
 	var generateJelly = function(){
-		return { 
+		var newJelly = { 
 				id:"jelly",
 				image:new Image(),
 				frames:jellyFrames,
@@ -147,10 +167,12 @@ var createApp = function(canvas) {
 				caught: false,
 				destroyed: false
 			};
+		newJelly.image.src = newJelly.frames[0]
+		return newJelly
 	}
 
 	var generateBomb = function(){
-		return { 
+		var newBomb = { 
 				id:"bomb",
 				image:new Image(),
 				frames:bombFrames,
@@ -165,6 +187,8 @@ var createApp = function(canvas) {
 				caught: false,
 				destroyed: false
 			};
+		newBomb.image.src = newBomb.frames[0]
+		return newBomb
 	}
 
 	var populateOcean = function(number){
@@ -182,23 +206,27 @@ var createApp = function(canvas) {
 
 	// World update and rendering functions.
 	var updatePlayer = function(){
-		var sinkerOffset = 0.8
 		var hookDrift = 0.3
 		var sinkerDrift = 0.5
 		fisherman.x = canvas.width - (fisherman.width * fisherman.scale / 2)
-		fisherman.y = floor - (fisherman.height * fisherman.scale / 2) + fisherman.height * fisherman.scale / 5
+		fisherman.y = floor - (fisherman.height * fisherman.scale / 2) + fisherman.height * fisherman.scale / 5 + (indexF % 20 <= 10 ? indexF % 20 : 20 - indexF % 20)
 		hook.x = hook.x + (mouse.x - hook.x) * hookDrift
-		if (mouse.y >= floor){
-			hook.y = hook.y + (mouse.y - hook.y) * hookDrift
+		if (!lowerHook){
+			if (hook.y < canvas.height){
+				hook.y = hook.y + 8
+				if (sinker.y < canvas.height * 0.8){
+					sinker.y = sinker.y + 5
+				}
+			}
 		} else{
-			hook.y = hook.y + (floor - hook.y) * hookDrift
+			if (hook.y > floor){
+				hook.y = hook.y - 16
+			}
+			if (sinker.y > floor){
+				sinker.y = sinker.y - 16
+			}
 		}
 		sinker.x = sinker.x + (mouse.x - sinker.x) * sinkerDrift
-		if (mouse.y >= floor * (1 / sinkerOffset)){
-			sinker.y = sinker.y + (mouse.y * sinkerOffset - sinker.y) * sinkerOffset
-		} else{
-			sinker.y = sinker.y + (floor - sinker.y) * sinkerOffset
-		}
 		bobber.x = mouse.x
 	}
 
@@ -227,6 +255,10 @@ var createApp = function(canvas) {
 						if (element.caught){
 							hooked = false;
 						}
+					} else if(element.caught && isRetrievable(element)){
+						score+= Math.floor(100 * element.scale)
+						trash.push(oceanContents.indexOf(element))
+						hooked = false;
 					}
 					break;
 				case "jelly":
@@ -239,6 +271,10 @@ var createApp = function(canvas) {
 						if (element.caught){
 							hooked = false;
 						}
+					} else if(element.caught  && isRetrievable(element)){
+						score-= 500
+						trash.push(oceanContents.indexOf(element))
+						hooked = false;
 					}
 					break;
 				case "bomb":
@@ -262,6 +298,8 @@ var createApp = function(canvas) {
 								hooked = false
 								if (collide.id === "fish"){
 									fishLost++
+								} else {
+									jelliesKilled++
 								}
 							}
 						});
@@ -272,6 +310,15 @@ var createApp = function(canvas) {
 
 		trash.forEach(function(i) {
 			oceanContents.splice(i, 1)
+			// Add more hostile entities to replace deleted ones.
+			if (oceanContents.length < 50){
+				populateOcean(Math.floor(Math.random() * 3))
+				if (Math.random() < 0.3){
+					oceanContents.push(generateJelly())
+				} else{
+					oceanContents.push(generateBomb())
+				}
+			}
 		})
 	}
 
@@ -311,32 +358,35 @@ var createApp = function(canvas) {
 		c.strokeStyle="yellow"
 		c.lineWidth = 5
 		c.beginPath()
-		c.rect(canvas.width - 420, 0, 420, 250)
+		c.rect(canvas.width - scoreWidth, 0, scoreWidth, scoreHeight)
 		c.stroke();
 		c.closePath()
 	}
 	var drawOceanContents = function(){
-		console.log(oceanContents.length)
 		oceanContents.forEach(function(element) {
 			c.save()
 			c.translate(getDrawLocation(element).x, getDrawLocation(element).y);
 			c.translate(element.width * element.scale, element.height * element.scale); 
 			c.rotate(element.angle * Math.PI/180)
-			c.drawImage(element.image, -(element.width * element.scale / 2), -(element.height  * element.scale / 2), element.width * element.scale, element.height * element.scale)
+			c.drawImage(element.image, -(element.width * element.scale / 2), -(element.height * element.scale / 2), element.width * element.scale, element.height * element.scale)
 			c.restore()
-			// c.fillStyle="white"
-			// c.fillRect(element.x, element.y, element.width * element.scale, element.height * element.scale)
 		});
 	}
 	var drawMetrics = function(){
 		c.font = "16px Courier New";
+		c.fillStyle= "black"
+		c.fillText("Score: " + score, 10, 20)
+		c.fillText("Fish Exploded: " + fishLost, 10, 36);
+		c.fillText("Jellies Exploded: " + jelliesKilled, 10, 52);
+		c.font = "bold 16px Courier New";
 		c.fillStyle= "#48D1CC"
-		c.fillText("SCORE: " + score, 10, 20);
-		c.fillText("Fish Lost: " + fishLost, 10, 36);
-		c.fillText("Fastest Catch: " + fastestCatch, 10, 52);
+		c.fillText("HIGH SCORE: " + highScore, canvas.width - scoreWidth * 2, 20)
+		c.fillText("MAX Fish Exploded: " + highFish, canvas.width - scoreWidth * 2, 36);
+		c.fillText("MAX Jellies Exploded: " + highJellies, canvas.width - scoreWidth * 2, 52);
 		if (hooked){
-			c.font = "bold 24px Courier New";
-			c.fillText("GOT ONE!", canvas.width - 360, 50)
+			c.font = "bold 36px Courier New";
+			c.fillStyle= "yellow"
+			c.fillText("GOT ONE!", hook.x, hook.y)
 		}
 	}
 
@@ -360,50 +410,81 @@ var createApp = function(canvas) {
 
 	var restart = function(){
 		var c = canvas.getContext("2d")
-
+		// Save metrics with cookies.
+		var timestamp = Date.now()
+		var metrics =  getMetrics()
+		document.cookie = timestamp + "=" + metrics.score + "," + metrics.fishExploded + "," + metrics.jelliesExploded + "; expires:" + (timestamp.getDate + 24*60*60*1000)
+		// console.log(document.cookie)
 		// World variables.
 		floor = canvas.height * 0.2
 		initialObjectCount = 8
+		lowerHook = false;
 		hooked = false
 		// Distribution of ocean entities.
 		var goldProb = 0.3
 		var jellyProb = 0.7
-
 		// Offset from floor.
 		var floorOffset = 20
-
 		// Entity speed constants.
 		var varSpeed = 7
 		var minSpeed = 3
-
 		// Metrics
-		score = 0;
-		fishLost = 0;
-		fastestCatch = null
-
+		score = 0
+		fishLost = 0
+		jelliesKilled = 0
 		// World objects.
 		hook = { image:document.getElementById("hook"), x:canvas.width * 0.5, y:canvas.height * 0.5, width:88, height:160, scale:0.5 }
 		sinker = { image:document.getElementById("sinker"), x:canvas.width * 0.5, y:canvas.height * 0.4, width: 42, height:140, scale: 0.3 }
 		bobber = { image:document.getElementById("bobber"), x:canvas.width * 0.5, y:floor, width:80, height:128, scale:0.5 }
 		oceanContents = []
-
 		var indexF = 0
 		var indexJ = 0
 		var indexB = 0
-
+		loadMetrics()
 		populateOcean(initialObjectCount)
+	}
+
+	var getMetrics = function() {
+		return {
+			score : score,
+			fishExploded : fishLost,
+			jelliesExploded : jelliesKilled
+		}
+	}
+
+	var loadMetrics = function(){
+		var decookie = decodeURIComponent(document.cookie)
+		var cookieArray = decookie.split(";")
+		cookieArray.forEach(function(element) {
+			var metrics = element.split("=")
+			if (metrics.length > 1){
+				var metricArray = metrics[1].split(",")
+				if (metricArray[0] > highScore){
+					highScore = metricArray[0]
+				}
+				if (metricArray[1] > highFish){
+					highFish = metricArray[1]
+				} 
+				if(metricArray[2] > highJellies){
+					highJellies = metricArray[2]
+				}
+			}
+		});
 	}
 
 	// Start game update loop.
     setInterval(function(){
 		update()
 		draw()
-	}, 80);
+	}, 50);
 
 	return {
 		populateOcean : populateOcean,
 		initialObjectCount : initialObjectCount,
-		restart : restart
+		restart : restart,
+		hookDown : hookDown,
+		hookUp : hookUp,
+		loadMetrics : loadMetrics
 	}
 }
 
@@ -414,4 +495,7 @@ window.onload = function() {
 	document.getElementById("addstuff").addEventListener("click", function(){
 		app.populateOcean(1)
 	});
+	document.querySelector("canvas").addEventListener("mousedown", app.hookDown)
+	document.querySelector("canvas").addEventListener("mouseup", app.hookUp)
+	app.loadMetrics()
 }
