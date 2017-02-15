@@ -21,12 +21,20 @@ class ToDoItem extends React.Component {
         }
     }
 
+    strikethrough(){
+        if (this.state.done){
+            this.class.className = "completed"
+        } else{
+            this.class.className = ""
+        }
+    }
+
     render() { 
         // console.log(this)
         return (
         <li id={ this.props.id } >
-            <i className="check glyphicon glyphicon-check" onClick={ () => {this.state.done = !this.state.done;}}></i>
-            <span contentEditable="true">{typeof(this.props.text) === "string" ? this.props.text : ""}</span>
+            <i className="check glyphicon glyphicon-check" onClick={ () => {this.state.done = !this.state.done; this.strikethrough()}}></i>
+            <span contentEditable="true" ref={(node) => { this.class = node; }}> {typeof(this.props.text) === "string" ? this.props.text : "" } </span>
             <i className="destroy glyphicon glyphicon-remove" onClick={ () => this.props.remove(this.props.id)}></i>
         </li>
         /*
