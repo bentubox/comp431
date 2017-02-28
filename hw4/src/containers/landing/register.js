@@ -3,11 +3,10 @@ import {connect} from 'react-redux'
 
 import { register } from '../../actions'
 
-const Register = ({status, toMain}) => {
+const Register = ({status, error, toMain}) => {
     return (<span>
-        <form id="RegistrationForm" onSubmit={ toMain }>
+        <form id="RegistrationForm" method="GET" action="#" onSubmit={ toMain }>
             <h1>NEW USER REGISTRATION</h1>
-            
             <p>Account Name*: <input type="text" id="accname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required /></p>
             <p>Display Name: <input type="text" id="name" placeholder="Display Name" /></p>
             <p>Email Address*: <input type="email" id="email" placeholder="name@host" required /></p>
@@ -18,7 +17,7 @@ const Register = ({status, toMain}) => {
             <p>Password Confirmation*: <input type="password" id="password1" placeholder="Confirm Password" required /></p>
             <input type="hidden" id="timestamp" value="" />
             <p>*required field</p>
-            <p id="status"><font color="red">{status} </font></p>
+            <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
             <input type="submit" value="Create Account" />
             <input type="reset" value="Clear Form" />
         </form>
@@ -26,7 +25,7 @@ const Register = ({status, toMain}) => {
 }
 
 const mapStateToProps = (state) => {
-    return {status: state.message}
+    return {status: state.message, error: state.error}
 }
 
 const mapDispatchToProps = (dispatch) => {

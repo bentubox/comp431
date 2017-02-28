@@ -3,9 +3,9 @@ import {connect} from 'react-redux'
 
 import { logIn } from '../../actions'
 
-const Login = ({toMain}) => {
+const Login = ({ toMain }) => {
     return (<span>
-       <form id="LoginForm" onSubmit={ toMain }>
+       <form id="LoginForm" method="GET" action="#" onSubmit={ toMain }>
            <h1>LOGIN</h1>
            <p>Account Name*: <input type="text" id="usrname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required /></p>
            <p>Password*: <input type="password" id="password" placeholder="Password" required /></p>

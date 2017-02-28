@@ -6,8 +6,10 @@ import {toProfile, logOut} from '../../actions'
 const Nav = ({toProfile, logOut}) => {
 
     return (<span>
-        <button onClick={ toProfile }>PROFILE</button>
-        <button onClick={ logOut }>LOGOUT</button>
+        <p>
+            <a onClick={ toProfile }>MY PROFILE</a>
+            <a onClick={ logOut }>LOG OUT</a>
+        </p>
     </span>)
 }
 
