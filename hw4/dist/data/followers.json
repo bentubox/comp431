@@ -5,6 +5,10 @@
         {"id": 2, "displayname": "Fischl", "pic": "/images/profile/Florida.png", "status": "Eyes are dry."}
     ],
 
+    "initialUser": {
+        "displayname": "Jack", "pic": "/images/profile/LouisianaJack.png"
+    },
+
     "pictures": [
         "/images/profile/DakotaNorth.png",
         "/images/profile/DakotaSouth.png",

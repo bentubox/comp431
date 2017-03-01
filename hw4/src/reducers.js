@@ -2,6 +2,7 @@ import * as Actions from './actions'
 import * as MainActions from './containers/main/mainActions'
 
 const followers = require('../dist/data/followers.json')
+const initialUser = followers.initialUser
 const defaultPics = followers.pictures
 const defaultStatuses = followers.statuses
 
@@ -10,8 +11,9 @@ const articles = initialArticles.initialArticles
 
 const Reducer = (state = {
     location: "LANDING",
-    user: {displayname:"Jack", followers: followers.initialFollowers},
+    user: {},
     message: "",
+    error: false,
     articles: articles,
     searchCrit: ""
 }, action) => {
@@ -21,7 +23,7 @@ const Reducer = (state = {
         case Actions.LOG_IN:
             return {...state,
                 location: action.location,
-                user: {...state.user, username: action.username, password: action.password, status: `Default status: Returning user!`, pic: "/images/profile/LouisianaJack.png", followers: followers.initialFollowers},
+                user: {...state.user, ...initialUser, username: action.username, password: action.password, status: `Default status: Returning user!`, followers: followers.initialFollowers},
                 message: `Logged in as ${action.username}!`,
                 error: false
             }
@@ -30,12 +32,13 @@ const Reducer = (state = {
                 location: action.location, 
                 user: {},
                 message: `User logged out!`,
-                error: false
+                error: false,
+                searchCrit: ""
             }
         case Actions.REGISTER:
             return {...state,
                 location: action.location,
-                user: {...state.user, ...action.user, status: `Default status: New User!`, followers: followers.initialFollowers},
+                user: {...state.user, ...action.user, pic: initialUser.pic, status: `Default status: New User!`, followers: followers.initialFollowers},
                 message: `Registered new user ${action.user.username}!`,
                 pic: "/images/profile/LouisianaJack.png",
                 error: false

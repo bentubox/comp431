@@ -5,7 +5,7 @@ import { register } from '../../actions'
 
 const Register = ({status, error, toMain}) => {
     return (<span>
-        <form id="RegistrationForm" method="GET" action="#" onSubmit={ toMain }>
+        <form id="RegistrationForm" method="GET" action="#">
             <h1>NEW USER REGISTRATION</h1>
             <p>Account Name*: <input type="text" id="accname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required /></p>
             <p>Display Name: <input type="text" id="name" placeholder="Display Name" /></p>
@@ -18,7 +18,7 @@ const Register = ({status, error, toMain}) => {
             <input type="hidden" id="timestamp" value="" />
             <p>*required field</p>
             <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
-            <input type="submit" value="Create Account" />
+            <input type="button" value="Create Account" onClick={ toMain } />
             <input type="reset" value="Clear Form" />
         </form>
     </span>)

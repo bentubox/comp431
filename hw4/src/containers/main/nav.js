@@ -12,10 +12,10 @@ const Nav = ({toProfile, logOut, filterArticles}) => {
             <a onClick={ logOut }>LOG OUT</a>
         </div>
         <div id="pageFilter">
-             <form>
+             <form method="GET" action="#">
                 Filter Page:
                 <input type="search" id="filterInput"/>
-                <input type="submit" value="SEARCH" onClick={ filterArticles }/>
+                <input type="button" value="SEARCH" onClick={ filterArticles }/>
             </form>  
         </div>
     </span>)
