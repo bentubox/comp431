@@ -7,10 +7,10 @@ const Profile = ({ user, status, error, toMain, updateProfile }) => {
 
     return (<span>
         <h1>PROFILE</h1>
-		<p><a onClick={ toMain }>HOME</a></p>.
+		<a onClick={ toMain }>HOME</a>
 		<div>
 			<input type="file" id="picUpload" accept="image/*" />
-			<img id="profilepic" src="/images/profile/LouisianaJack.png" />
+			<img id="profilepic" src={user.pic} />
 		
 		</div>
         <div id="display">
@@ -49,7 +49,7 @@ const Profile = ({ user, status, error, toMain, updateProfile }) => {
     </span>)
 }
 
-const mapStatetoProps = (state) => {
+const mapStateToProps = (state) => {
 	return {
 		user: state.user,
 		status: state.message,
@@ -79,7 +79,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const ProfileContainer = connect(
-    mapStatetoProps,
+    mapStateToProps,
     mapDispatchToProps
 )(Profile)
 

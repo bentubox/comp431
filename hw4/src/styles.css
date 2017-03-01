@@ -58,36 +58,6 @@ img {
 	margin-right: auto;
 }
 
-button {
-	display: block;
-	margin-top: 10px;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 8px;
-
-	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
-	font-weight: bold;
-	font-size: 24px;
-
-	background-color: transparent;
-	border-width: 3px;
-	border-style: solid;
-	border-radius: 5px;
-	border-color: rgb(143, 112, 112);
-
-}
-
-button:hover {
-	border-color: black; 
-	color: yellow;
-	background-color: black
-}
-
-button:active {
-	border-color: rgb(188, 169, 169); 
-	color: rgb(188, 169, 169);
-}
-
 .picDiv{
 	text-align: center;
 }
@@ -167,8 +137,191 @@ input {
 	height: 90%
 }
 
-#update:hover{
+#update:hover {
 	color: white;
 	background-color: rgb(255, 77, 77);
 	border-color: rgb(250, 0, 0);
+}
+
+/* Main Page */
+#navButtons{
+	display: block;
+}
+
+#pageFilter {
+	display: block;
+	margin: 5px;
+	padding: 5px 20px;
+	font-weight: bold;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	background-color: yellow;
+	text-align: center;
+}
+
+#pageFilter #filterInput {
+	width: 25%;
+}
+
+#sidebar{
+	display: block;
+	width: 21em;
+	margin-left: 3px;
+	margin-top: 8px;
+	float: left;
+	border-style: solid;
+	background-color: lightgray;
+	text-align: center;
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+}
+
+#sidebar img{
+	width: 100%;
+	height: 100%;
+	max-width: 100px;
+	max-height: 100px;
+	display: block;
+	background-color: whitesmoke;
+}
+
+#sidebar button {
+	margin: 5px;
+	padding: 5px;
+	border-radius: 3px;
+	border-width: 3px;
+	border-style: solid;
+	border-color: antiquewhite;
+	background-color: indianred;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+#sidebar button:hover {
+	border-color: red;
+}
+
+#sidebar button:active {
+	border-style: inset;
+}
+
+#userHeadline {
+	display: block;
+	border-style: double;
+	background-color: darkgray;
+}
+
+#updateStatusButton, #addFollowerButton{
+	margin: 5px;
+	padding: 5px;
+	border-radius: 3px;
+	border-width: 3px;
+	border-style: solid;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+#addFollowerButton{
+	border-radius: 5px;
+	padding: 0px 7px;
+	font-size: 28px;
+}
+
+#addFollowerButton, #updateStatusButton {
+	border-color: antiquewhite;
+	background-color: lightgoldenrodyellow;
+}
+
+#addFollowerButton:hover, #updateStatusButton:hover {
+	border-color: yellow;
+}
+
+#updateStatusButton:active, #addFollowerButton:active {
+	border-style: inset;
+}
+
+#follower {
+	display: block;
+	border-style: groove;
+}
+
+#headerName {
+	font-weight: bold;
+	font-size: 24px;
+	background-color: yellow;
+}
+
+#headerStatus {
+	background-color: black;
+	color: whitesmoke;
+	border-color: black;
+	border-style: solid;
+	padding: 3px;
+}
+
+#post {
+	width: 72%;
+	height: 300px;
+	border-style: solid;
+	border-width: 8px;
+	border-color: darkgray;
+	display: block;
+	margin-left: 24em;
+	margin-top: 8px;
+}
+
+#postPic {
+	margin-top: 150px;
+	position: absolute;
+}
+
+#postButtons {
+	margin-top: 250px;
+	margin-right: 2%;
+	float: right;
+}
+
+#postArticle {
+	width: 70%;
+	height: 90%;
+	resize: none;
+	overflow: scroll;
+	margin: 10px;
+}
+
+#deck {
+	border-style: solid;
+	border-width: 8px;
+	border-color: darkgray;
+	display: block;
+	width: 72%;
+	margin-left: 24em;
+}
+
+.articleCard{
+	background-color: whitesmoke;
+	border-radius: 8px;
+	padding: 12px;
+	margin: 5px;
+	display: block;
+}
+
+#articleInfo {
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#articlePic {
+	max-width: 700px;
+	max-height: 700px;
+	background-color: snow;
+	border-style: double;
+	border-width: 1px;
+	display: block;
+	margin-top: 20px;
+	margin-bottom: 10px;
+}
+
+#articleText {
+	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
+	background-color: snow;
+	padding: 5px;
 }

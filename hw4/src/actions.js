@@ -63,7 +63,7 @@ export const register = (regFields) => {
     // Check password matching.
     var pass1 = regFields.password;
     var pass2 = regFields.passwordconfirm;
-    if(pass1 !== pass2){
+    if(pass1 != pass2){
         return { type: ERROR, message: 'Passwords do not match!'}
     }
     return {type: REGISTER, location: Pages.MAIN_PAGE, user: {

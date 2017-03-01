@@ -1,7 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 
-import Main from './main/main'
+import MainContainer from './main/main'
 import ProfileContainer from './profile/profile'
 import Landing from './landing/landing'
 
@@ -14,7 +14,7 @@ export const Pages = {
 // Component renders different page depending on location state variable.
 const variableComponent = ({location}) => {
     if (location == Pages.MAIN_PAGE) {
-    	return <Main />
+    	return <MainContainer />
     } else if (location == Pages.PROFILE_PAGE) {
 	    return <ProfileContainer />
     } else {
