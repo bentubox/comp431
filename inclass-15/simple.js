@@ -45,8 +45,8 @@ function server(req, res) {
         if (req.url == "/login"){
             // POST login
             if(req.payload !== 'undefined' && req.headers['content-type'] == "application/json"){
-                constobjectBody = JSON.parse(req.body)
-                const payload = { username: constobjectBody.username, result: "Success!" }
+                const objectBody = JSON.parse(req.body)
+                const payload = { username: objectBody.username, result: "Success!" }
                 res.setHeader('Content-Type', 'application/json')
                 res.statusCode = 200
                 res.end(JSON.stringify(payload))
