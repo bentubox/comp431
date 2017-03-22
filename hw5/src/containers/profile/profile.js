@@ -39,6 +39,11 @@ const Profile = ({ user, status, error, toMain, updateProfile }) => {
 				<div id="oldZip">{user.zip}</div>
 				<input type="text" id="newZip" rows="1" cols="5" placeholder="New Zipcode" pattern="\d{5}" />
 			</div>
+			<div id="password">
+				<div id="fieldPassword">Password: </div>
+				<input type="password" id="newPassword" rows="1" cols="24" placeholder="New Password" />
+				<input type="password" id="newPasswordConfirm" rows="1" cols="24" placeholder="Confirm Password" />
+			</div>
 		</div>
 		<div id="info">
 			<p><font color={error ? "red" : "lime"}>{status} </font></p>
@@ -61,19 +66,15 @@ const mapDispatchToProps = (dispatch) => {
     return {
         toMain: () => {dispatch(toMain())},
 		updateProfile: () => {
-			var oldFields = {
-				displayname: document.getElementById("oldName").value,
-				email: document.getElementById("oldEmail").value,
-				phone: document.getElementById("oldPhone").value,
-				zip: document.getElementById("oldZip").value
-			}
 			var newFields = {
 				displayname: document.getElementById("newName").value,
 				email: document.getElementById("newEmail").value,
 				phone: document.getElementById("newPhone").value,
-				zip: document.getElementById("newZip").value
+				zip: document.getElementById("newZip").value,
+				password: document.getElementById("newPassword").value,
+				passwordConfirm: document.getElementById("newPasswordConfirm").value
 			}
-			dispatch(updateProfile(oldFields, newFields))
+			updateProfile(newFields)(dispatch)
 		}
     }
 }

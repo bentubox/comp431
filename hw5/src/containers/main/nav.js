@@ -1,8 +1,9 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { toProfile, logOut } from '../../actions'
-import { filterArticles} from './mainActions'
+import { toProfile } from '../../actions'
+import { logOut } from '../landing/authActions'
+import { filterArticles } from './mainActions'
 
 const Nav = ({toProfile, logOut, filterArticles}) => {
 

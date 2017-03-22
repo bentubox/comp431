@@ -1,23 +1,23 @@
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
-import { logIn } from '../../actions'
+import { logIn } from './authActions'
 
-const Login = ({ toMain }) => {
+const Login = ({ login }) => {
     return (<span>
        <form id="LoginForm" method="GET" action="#">
            <h1>LOGIN</h1>
            <p>Account Name*: <input type="text" id="usrname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required /></p>
            <p>Password*: <input type="password" id="password" placeholder="Password" required /></p>
-           <input type="button" value="LOGIN" onClick={ toMain }/>
+           <input type="button" value="LOGIN" onClick={ login }/>
        </form>
     </span>)
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toMain: () => {
-            dispatch(logIn(document.getElementById("usrname").value, document.getElementById("password").value))
+        login: () => {
+            logIn(document.getElementById("usrname").value, document.getElementById("password").value)(dispatch)
         }
     }
 }

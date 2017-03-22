@@ -11,7 +11,7 @@ const Main = ({articles, postArticle}) => {
     return (<span>
         <h1>MAIN</h1>
         <NavContainer />
-        <SidebarContainer />
+        {/*<SidebarContainer />*/}
         <PostContainer />
         <SortedDeck />     
     </span>)

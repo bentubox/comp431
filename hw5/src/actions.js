@@ -1,14 +1,34 @@
 import { Pages } from './containers/app'
 
-// Action Types
-export const ActionTypes = {
-    UPDATE_TEXT: 'UPDATE_TEXT', 
-    CHANGE_PAGE: 'CHANGE_PAGE',
-    LOG_IN: 'LOG_IN',
-    REGISTER: 'REGISTER',
-    LOG_OUT: 'LOG_OUT',
-    UPDATE_USER: 'UPDATE_USER'
-}
+// Null Action.
+export const NULL_ACTION = "NULL"
+
+// General Actions.
+export const CHANGE_PAGE = 'CHANGE_PAGE'
+export const ERROR = 'ERROR'
+export const SUCCESS = 'SUCCESS'
+
+// Authentication actions.
+export const LOG_IN = 'LOG_IN'
+export const REGISTER = 'REGISTER'
+export const LOG_OUT = 'LOG_OUT'
+
+// Profile actions.
+export const UPDATE_STATUS = 'UPDATE_STATUS'
+export const UPDATE_AVATAR = 'UPDATE_AVATAR'
+export const LOAD_FOLLOWERS = 'LOAD_FOLLOWERS'
+export const UPDATE_EMAIL = 'UPDATE_EMAIL'
+export const UPDATE_ZIPCODE =  'UPDATE_ZIPCODE'
+export const UPDATE_DOB = 'UPDATE_DOB'
+export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
+
+// Main Page actions
+export const REMOVE_FOLLOWER = 'REMOVE_FOLLOWER'
+export const ADD_FOLLOWER = 'ADD_FOLLOWER'
+export const POST_ARTICLE = 'POST_ARTICLE'
+export const EDIT_ARTICLE = 'EDIT_ARTICLE'
+export const POST_COMMENT = 'POST_COMMENT'
+export const SEARCH = 'SEARCH'
 
 // Server Communication
 const url = 'https://webdev-dummy.herokuapp.com'
@@ -28,135 +48,66 @@ const resource = (method, endpoint, payload) => {
         return (r.headers.get('Content-Type').indexOf('json') > 0) ? r.json() : r.text()
       } else {
         // useful for debugging, but remove in production
-        console.error(`${method} ${endpoint} ${r.statusText}`)
+        // console.error(`${method} ${endpoint} ${r.statusText}`)
         throw new Error(r.statusText)
       }
     })
 }
 
-// Test action for reference,
-export const updateText = (text) => {
-    if (text.length > 5) {
-        return { type: UPDATE_TEXT, text }
-    }
-    return { type: ERROR, message: 'Text must be longer than 5 characters'}
-}
-
-// Landing page actions.
-// Perform verification before dispatching change page action.
-export const logIn = (username, password) => {
-    if (username.length) {
-        if (password.length){
-            return {type: LOG_IN, location: Pages.MAIN_PAGE, username: username, password: password}
-        } else{
-            return { type: ERROR, message: 'Login Password must not be blank!'}
-        }
-    } else{
-        return { type: ERROR, message: 'Login Username must not be blank!'}
-    }
-}
-
-// Perform verification before dispatching change page action.
-export const register = (regFields) => {
-    // Check date of birth.
-    var dob = regFields.dob.split("-")
-    var today = new Date()
-    var yearDiff = today.getFullYear() - dob[0]
-    var monthDiff = today.getMonth() - dob[1]
-    var dayDiff = today.getDate() - dob[2]
-
-    if(yearDiff < 18){
-        return { type: ERROR, message: 'Must be over the age of 18 to register!'}
-    } else if(yearDiff == 18){
-        if(monthDiff < 0){
-            return { type: ERROR, message: 'Must be over the age of 18 to register!'}
-        } else if(monthDiff == 0){
-            if(dayDiff < 0){
-                return { type: ERROR, message: 'Must be over the age of 18 to register!'}
-            }
-        }
-    }
-
-    // Check password matching.
-    var pass1 = regFields.password;
-    var pass2 = regFields.passwordconfirm;
-    if(pass1 != pass2){
-        return { type: ERROR, message: 'Passwords do not match!'}
-    }
-    return {type: REGISTER, location: Pages.MAIN_PAGE, user: {
-        username: regFields.username,
-        displayname: regFields.displayname,
-        email: regFields.email,
-        phone: regFields.phone,
-        dob: regFields.dob,
-        zip: regFields.zip,
-        password: regFields.password
-    }}
-}
-
-// Main page actions.
-// Dispatch change page action. Clear user field in state.
-export const logOut = () => {
-    return { type: LOG_OUT, location: Pages.LANDING }
-}
+// General actions.
+// Dispatch change page action. 
+const toLanding = () => (dispatch) => dispatch({ type: CHANGE_PAGE, location: Pages.LANDING })
 
 // Dispatch change page action.
-export const toProfile = () => {
-    return { type: CHANGE_PAGE, location: Pages.PROFILE_PAGE } 
-}
+const toProfile = () => (dispatch) => dispatch({ type: CHANGE_PAGE, location: Pages.PROFILE_PAGE })
 
-// Profile page actions.
 // Dispatch change page action.
-export const toMain = () => {
-    return { type: CHANGE_PAGE, location: Pages.MAIN_PAGE }    
+const toMain = () => (dispatch) => dispatch({ type: CHANGE_PAGE, location: Pages.MAIN_PAGE })
+
+// Update error message.
+const reportError = (message) => (dispatch) => dispatch({ type: ERROR, message })
+
+// Update status message.
+const reportSuccess = (message) => (dispatch) => dispatch({ type: SUCCESS, message })
+
+export { url, resource, toLanding, toProfile, toMain, reportError, reportSuccess }
+
+// Authentication actions
+const dispatchLogin = (username, password) => (dispatch) => dispatch({ type: LOG_IN, username: username, password: password })
+
+const dispatchRegister = (user) => (dispatch) => dispatch({ type: REGISTER, user: user })
+
+const dispatchLogout = () => (dispatch) => dispatch({ type:LOG_OUT })
+
+export { dispatchLogin, dispatchRegister, dispatchLogout}
+
+// Profile actions.
+const updateField = (field, newValue) => (dispatch) => {
+  switch(field){
+    case "STATUS":
+      dispatch({ type: UPDATE_STATUS, status: newValue })
+      break
+    case "AVATAR":
+      dispatch({ type: UPDATE_AVATAR, pic: newValue })
+      break
+    case "FOLLOWERS":
+      dispatch({ type: LOAD_FOLLOWERS, followers: newValue })
+      break
+    case "EMAIL":
+      dispatch({ type: UPDATE_EMAIL, email: newValue })
+      break
+    case "ZIPCODE":
+      dispatch({ type: UPDATE_ZIPCODE, zip: newValue })
+      break
+    case "DOB":
+      dispatch({ type: UPDATE_DOB, dob: newValue })
+      break
+    case "PASSWORD":
+      dispatch({ type: UPDATE_PASSWORD, password: newValue})
+      break
+    default:
+      dispatch({ type: ERROR, message: "Cannot update invalid field!" })
+  }
 }
 
-// Perform form verification before dispatching user update action.
-export const updateProfile = (oldFields, newFields) => {
-    var pattern
-    var updateName = oldFields.displayname
-    // Verify name field.
-	if(newFields.displayname.length != 0){
-        pattern = new RegExp("^[^<>]+$")
-        if (pattern.test(newFields.displayname)) {
-            updateName = newFields.displayname
-        } else{
-            return { type: ERROR, message: 'Invalid name for name change!'}
-        }
-    }
-
-    var updateEmail = oldFields.email
-    // Verify email.
-    if(newFields.email.length != 0){
-	    pattern = new RegExp("^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$|^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+$")
-        if (pattern.test(newFields.email)) {
-            updateEmail = newFields.email
-        } else{
-            return { type: ERROR, message: 'Invalid email for email change!'}
-        }
-    }
-
-    var updatePhone = oldFields.phone
-    // Verify phone number.
-    if(newFields.phone.length != 0){
-	    pattern = pattern = new RegExp("^[0-9]{10}$|^[0-9]{3}-[0-9]{3}-[0-9]{4}$")
-        if (pattern.test(newFields.phone)) {
-            updatePhone = newFields.phone
-        } else{
-            return { type: ERROR, message: 'Invalid phone number for phone number change!'}
-        }
-    }
-
-    var updateZip = oldFields.zip
-    // Verify zip code.
-    if(newFields.zip.length != 0){
-	    pattern = new RegExp("^[0-9_]{5}$")
-        if (pattern.test(newFields.zip)) {
-            updateZip = newFields.zip
-        } else{
-            return { type: ERROR, message: 'Invalid zip code for zip code change!'}
-        }
-    }
-
-    return {type: UPDATE_USER, displayname: updateName, email: updateEmail, phone: updatePhone, zip: updateZip}
-}
+export { updateField }

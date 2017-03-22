@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
-import { register } from '../../actions'
+import { register } from './authActions'
 
-const Register = ({status, error, toMain}) => {
+const Register = ({status, error, regUser}) => {
     return (<span>
         <form id="RegistrationForm" method="GET" action="#">
             <h1>NEW USER REGISTRATION</h1>
@@ -18,7 +18,7 @@ const Register = ({status, error, toMain}) => {
             <input type="hidden" id="timestamp" value="" />
             <p>*required field</p>
             <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
-            <input type="button" value="Create Account" onClick={ toMain } />
+            <input type="button" value="Create Account" onClick={ regUser } />
             <input type="reset" value="Clear Form" />
         </form>
     </span>)
@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toMain: () => {
+        regUser: () => {
             var regFields = {
                 username: document.getElementById("accname").value,
                 displayname: document.getElementById("name").value,
@@ -41,7 +41,7 @@ const mapDispatchToProps = (dispatch) => {
                 password: document.getElementById("password0").value,
                 passwordconfirm: document.getElementById("password1").value
             }
-            dispatch(register(regFields))
+            register(regFields)(dispatch)
         }
     }
 }
