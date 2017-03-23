@@ -7,7 +7,7 @@ const Deck = ({articles}) => {
     return (<span>
                 <div id="deck">
                     {articles.map(article => 
-                        <div key={ article.id } className="articleCard">
+                        <div key={ article._id } className="articleCard">
                             <CardContainer article = {article}/>
                         </div>
                     )}

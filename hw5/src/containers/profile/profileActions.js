@@ -1,18 +1,23 @@
 import * as Actions from '../../actions'
+import * as MainActions from '../main/mainActions'
 
 // Profile page actions.
+const viewMain = () => (dispatch) => {
+    dispatch(Actions.toMain())
+    dispatch(Actions.reportSuccess('Loaded main page!'))
+}
+
 // Perform form verification before dispatching user update action.
 const updateProfile = (newFields) => (dispatch) => {
     var pattern
-    var error = false
     // Verify name field.
     if(newFields.displayname.length != 0){
         pattern = new RegExp("^[^<>]+$")
         if (pattern.test(newFields.displayname)) {
             // Name update not supported.
+            dispatch(Actions.reportError('Name change not supported!'))
         } else{
             dispatch(Actions.reportError('Invalid name for name change!'))
-            error = true
         }
     }
 
@@ -25,11 +30,9 @@ const updateProfile = (newFields) => (dispatch) => {
                 dispatch(Actions.reportSuccess(`Email updated to ${response.email}!`))
             }).catch( (err) => {
                 dispatch(Actions.reportError(`Email was not updated successfully! ERROR: ${err.message}`))
-                error = true
             })
         } else{
             dispatch(Actions.reportError('Invalid email for email change!'))
-            error = true
         }
     }
 
@@ -38,9 +41,9 @@ const updateProfile = (newFields) => (dispatch) => {
         pattern = new RegExp("^[0-9]{10}$|^[0-9]{3}-[0-9]{3}-[0-9]{4}$")
         if (pattern.test(newFields.phone)) {
             // Phone number update not supported.
+            dispatch(Actions.reportError('Phone number change not supported!'))
         } else{
             dispatch(Actions.reportError('Invalid phone number for phone number change!'))
-            error = true
         }
     }
 
@@ -53,11 +56,9 @@ const updateProfile = (newFields) => (dispatch) => {
                 dispatch(Actions.reportSuccess(`Zipcode updated to ${response.zipcode}!`))
             }).catch( (err) => {
                 dispatch(Actions.reportError(`Zipcode was not updated successfully! ERROR: ${err.message}`))
-                error = true
             })
         } else{
             dispatch(Actions.reportError('Invalid zip code for zip code change!'))
-            error = true
         }
     }
 
@@ -67,18 +68,13 @@ const updateProfile = (newFields) => (dispatch) => {
             Actions.resource('PUT', 'password', {password: newFields.password}).then( (response) => {
                 // Server does not support password update. Only nonpersistent local update is performed.
                 dispatch(Actions.updateField("PASSWORD", newFields.password))
+                dispatch(Actions.reportSuccess(`Message from server for password change: ${response.message}`))
             }).catch( (err) => {
                 dispatch(Actions.reportError(`Password was not updated successfully! ERROR: ${err.message}`))
-                error = true
             })
         } else{
             dispatch(Actions.reportError('Passwords do not match!'))
-            error = true
         }		
-    }
-
-    if (!error){
-        dispatch(Actions.reportSuccess(`All editable fields have updated successsfully!`))
     }
 }
 
@@ -86,55 +82,64 @@ const updateProfile = (newFields) => (dispatch) => {
 // Load profile information for user.
 const loadProfile = (username) => (dispatch) => {
     // Retrieve user information from server.
-    var error = false
-    Actions.resource('GET', `headlines/:${username}?`).then( (r) => {
+    Actions.resource('GET', `headlines/${username}?`).then( (r) => {
         dispatch(Actions.updateField("STATUS", r.headlines[0].headline))
-        dispatch(Actions.reportSuccess('Updated Status!'))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load status for user! ERROR: ${err.message}!`))
         dispatch(Actions.updateField("STATUS",  ""))
-    })
-    Actions.resource('GET', `avatars/:${username}?`).then( (r) => {
+    }),
+    Actions.resource('GET', `avatars/${username}?`).then( (r) => {
         dispatch(Actions.updateField("AVATAR", r.avatars[0].avatar))
-        dispatch(Actions.reportSuccess('Updated Avatar!'))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load avatar for user! ERROR: ${err.message}`))
         dispatch(Actions.updateField("AVATAR",  ""))
-    })
-    Actions.resource('GET', `following/:${username}?`).then( (r) => {
-        dispatch(Actions.updateField("FOLLOWERS", r.following))
-        dispatch(Actions.reportSuccess('Updated Followers!'))
+    }),
+    Actions.resource('GET', `following/${username}?`).then( (r) => {
+        // Load info for followers as well.
+        const followers = r.following.map((id) => {
+            const follower = {id: id}
+            Actions.resource('GET', `headlines/${id}?`).then( (rh) => {
+                follower.status = rh.headlines[0].headline
+            }).catch()
+            Actions.resource('GET', `avatars/${id}?`).then( (ra) => {
+                follower.pic = ra.avatars[0].avatar
+            }).catch()
+            return follower
+        })
+        dispatch(Actions.updateField("FOLLOWERS", followers))
+        dispatch(Actions.updateField("FOLLOWERS", followers))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load followers for user! ERROR: ${err.message}`))
         dispatch(Actions.updateField("FOLLOWERS",  ""))
-    })
-    Actions.resource('GET', `email/:${username}?`).then( (r) => {
+    }),
+    Actions.resource('GET', `email/${username}?`).then( (r) => {
         dispatch(Actions.updateField("EMAIL", r.email))
-        dispatch(Actions.reportSuccess('Updated Email!'))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load email for user! ERROR: ${err.message}`))
         dispatch(Actions.updateField("EMAIL", ""))
-    })
-    Actions.resource('GET', `zipcode/:${username}?`).then( (r) => {
+    }),
+    Actions.resource('GET', `zipcode/${username}?`).then( (r) => {
         dispatch(Actions.updateField("ZIPCODE", r.zipcode))
-        dispatch(Actions.reportSuccess('Updated Zipcode!'))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load zipcode for user! ERROR: ${err.message}`))
         dispatch(Actions.updateField("ZIPCODE", ""))
-    })
+    }),
     Actions.resource('GET', 'dob').then( (r) => {
         dispatch(Actions.updateField("DOB", r.dob))
-        dispatch(Actions.reportSuccess('Updated Date of Birth!'))
     }).catch( (err) => {
         dispatch(Actions.reportError(`Could not load date of birth for user! ERROR: ${err.message}`))
         dispatch(Actions.updateField("DOB", ""))
+    })
+    // Load articles.
+    MainActions.loadArticles(username)((action) => {
+        dispatch(action)
     })
 }
 
 // Action for updating user status.
 const updateStatus = (text) => (dispatch) => {
     if (text.length) {
-        Actions.resource('PUT', 'headline', { text }).then( (response) => {
+        Actions.resource('PUT', 'headline', { headline: text }).then( (response) => {
             dispatch(Actions.updateField("STATUS", response.headline))
             dispatch(Actions.reportSuccess(`Status for ${response.username} updated to ${response.headline}!`))
         }).catch( (err) => {
@@ -145,5 +150,4 @@ const updateStatus = (text) => (dispatch) => {
     }
 }
 
-
-export { updateProfile, loadProfile, updateStatus }
+export { viewMain, updateProfile, loadProfile, updateStatus }

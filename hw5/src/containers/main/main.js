@@ -6,12 +6,12 @@ import SidebarContainer from './sidebar'
 import PostContainer from './post'
 import SortedDeck from './deck'
 
-const Main = ({articles, postArticle}) => {
-
+const Main = ({status, error}) => {
     return (<span>
+        <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
         <h1>MAIN</h1>
         <NavContainer />
-        {/*<SidebarContainer />*/}
+        <SidebarContainer />
         <PostContainer />
         <SortedDeck />     
     </span>)
@@ -19,21 +19,14 @@ const Main = ({articles, postArticle}) => {
 
 const mapStateToProps = (state) => {
     return {
-        articles: state.articles
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        postArticle: () => {
-            dispatch(postArticle())
-        }
+        status: state.message,
+        error: state.error
     }
 }
 
 const MainContainer = connect(
     mapStateToProps,
-    mapDispatchToProps
+    null
 )(Main)
 
 export default MainContainer

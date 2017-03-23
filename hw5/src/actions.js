@@ -25,7 +25,7 @@ export const UPDATE_PASSWORD = 'UPDATE_PASSWORD'
 // Main Page actions
 export const REMOVE_FOLLOWER = 'REMOVE_FOLLOWER'
 export const ADD_FOLLOWER = 'ADD_FOLLOWER'
-export const POST_ARTICLE = 'POST_ARTICLE'
+export const LOAD_ARTICLES = 'LOAD_ARTICLES'
 export const EDIT_ARTICLE = 'EDIT_ARTICLE'
 export const POST_COMMENT = 'POST_COMMENT'
 export const SEARCH = 'SEARCH'
@@ -73,7 +73,7 @@ const reportSuccess = (message) => (dispatch) => dispatch({ type: SUCCESS, messa
 export { url, resource, toLanding, toProfile, toMain, reportError, reportSuccess }
 
 // Authentication actions
-const dispatchLogin = (username, password) => (dispatch) => dispatch({ type: LOG_IN, username: username, password: password })
+const dispatchLogin = (username) => (dispatch) => dispatch({ type: LOG_IN, username: username })
 
 const dispatchRegister = (user) => (dispatch) => dispatch({ type: REGISTER, user: user })
 
@@ -111,3 +111,14 @@ const updateField = (field, newValue) => (dispatch) => {
 }
 
 export { updateField }
+
+// Main Page actions.
+const dispatchRemoveFollower = (id) => (dispatch) => dispatch({ type: REMOVE_FOLLOWER, id })
+
+const dispatchAddFollower = (follower) => (dispatch) => dispatch({ type: ADD_FOLLOWER, follower })
+
+const dispatchLoadArticles = (articles) => (dispatch) => dispatch({ type: LOAD_ARTICLES, articles })
+
+const dispatchFilterArticles = (keyword) => (dispatch) => dispatch({ type: SEARCH, keyword })
+
+export { dispatchRemoveFollower, dispatchAddFollower, dispatchLoadArticles, dispatchFilterArticles}

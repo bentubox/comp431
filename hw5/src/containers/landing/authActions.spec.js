@@ -35,11 +35,10 @@ describe( 'Validate authentication', () => {
         headers: {'Content-Type':'application/json'},
         json: { username, result: "success"}
       })
-
+      
       AuthActions.logIn(username, password)(
         fn => fn((action) => {
           try{
-            expect(action.type).to.not.eql(DispatchActions.ERROR)
             if (action.type === DispatchActions.LOG_IN){
               expect(action.username).to.eql(username)
               done()

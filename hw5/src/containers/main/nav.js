@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import { toProfile } from '../../actions'
 import { logOut } from '../landing/authActions'
-import { filterArticles } from './mainActions'
+import { filterArticles, viewProfile } from './mainActions'
 
-const Nav = ({toProfile, logOut, filterArticles}) => {
+const Nav = ({viewProfile, logOut, filterArticles}) => {
 
     return (<span>
         <div id="navButtons">
-            <a onClick={ toProfile }>MY PROFILE</a>
+            <a onClick={ viewProfile }>MY PROFILE</a>
             <a onClick={ logOut }>LOG OUT</a>
         </div>
         <div id="pageFilter">
@@ -25,10 +24,18 @@ const Nav = ({toProfile, logOut, filterArticles}) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toProfile: () => {dispatch(toProfile())},
-        logOut: () => {dispatch(logOut())},
+        viewProfile: () => {
+            viewProfile()(fn => fn((action) => {
+                dispatch(action)
+            }))},
+        logOut: () => {
+            logOut()(fn => fn((action) => {
+                dispatch(action)
+            }))},
         filterArticles: () => {
-            dispatch(filterArticles(document.getElementById("filterInput").value))
+            filterArticles(document.getElementById("filterInput").value)(fn => fn((action) => {
+                dispatch(action)
+            }))
         }
     }
 }

@@ -33,6 +33,11 @@ p {
 	padding: 0px;
 }
 
+#status {
+	margin-top: 0px;
+	margin-left: 20px;
+}
+
 table, th, td {
    border: 1px solid black;
    padding: 5px;
@@ -324,4 +329,15 @@ input {
 	font-family: "Courier New", Courier, "Lucida Sans Typewriter", "Lucida Typewriter", monospace;
 	background-color: snow;
 	padding: 5px;
+}
+
+.comment {
+	display: block;
+	background-color: snow;
+	border-style: solid;
+	border-radius: 3px;
+	border-color: lightgray;
+	padding: 3px;
+	margin-left: 30px;
+	margin-bottom: 5px;
 }

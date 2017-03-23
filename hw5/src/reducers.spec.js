@@ -45,9 +45,29 @@ describe( 'Validate reducer', () => {
     done()
   })
 
-  it('should set articles')
+  it('should set articles', (done) => {
+    const articles = [
+      {_id: 0, author: "bnt1", comments: [], date: "2017-03-23T02:57:45.242Z", text: "afdsfdas"},
+      {_id: 1, author: "bnt1", comments: [], date: "2017-03-23T02:57:45.242Z", text: "sdfsfdsf"},
+      {_id: 2, author: "bnt1", comments: [], date: "2017-03-23T02:57:45.242Z", text: "tsdvsdgb"}
+    ]
+    const articleMessage = { type: Actions.LOAD_ARTICLES, articles}
+    const oldState = { otherdata: "stuff"}
 
-  it('should set search keyword')
+    expect(Reducer(oldState, articleMessage).articles).to.have.length(3)
+    done()
+  })
 
-  it('should filter displayed articles based on search keyword')
+  it('should set search keyword', (done) => {
+    const keyword = "KEYWORD"
+    const oldState = { otherdata: "stuff"}
+    const searchMessage = { type: Actions.SEARCH, keyword}
+    expect(Reducer(oldState, searchMessage).searchCrit).to.be.eql(keyword)
+    done()
+  })
+
+  it('should filter displayed articles based on search keyword', (done) => {
+    // Filtering not handled by reducer.
+    done()
+  })
 })

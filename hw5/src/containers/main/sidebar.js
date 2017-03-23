@@ -2,7 +2,8 @@ import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
 import Headline from './headline'
-import { updateStatus, addFollower, removeFollower} from './mainActions'
+import { addFollower, removeFollower} from './mainActions'
+import { updateStatus } from '../profile/profileActions'
 
 const Sidebar = ({user, updateStatus, addFollower, removeFollower}) => {
     return(<span>
@@ -39,13 +40,19 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         updateStatus: () => {
-            dispatch(updateStatus(document.getElementById("newStatus").value))
+            updateStatus(document.getElementById("newStatus").value)(fn => fn((action) => {
+                dispatch(action)
+            }))
         },
         removeFollower: (id) => {
-            dispatch(removeFollower(id))
+           removeFollower(id)(fn => fn((action) => {
+                dispatch(action)
+            }))
         },
         addFollower: () => {
-            dispatch(addFollower(document.getElementById("followerNameInput").value))
+            addFollower(document.getElementById("followerNameInput").value)(fn => fn((action) => {
+                dispatch(action)
+            }))
         }
     }
 }

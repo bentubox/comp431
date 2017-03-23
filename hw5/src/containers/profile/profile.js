@@ -1,13 +1,13 @@
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
-import {toMain, updateProfile} from '../../actions'
+import { viewMain, updateProfile } from './profileActions'
 
-const Profile = ({ user, status, error, toMain, updateProfile }) => {
+const Profile = ({ user, status, error, viewMain, updateProfile }) => {
 
     return (<span>
         <h1>PROFILE</h1>
-		<a onClick={ toMain }>HOME</a>
+		<a onClick={ viewMain }>HOME</a>
 		<div>
 			<input type="file" id="picUpload" accept="image/*" />
 			<img id="profilepic" src={user.pic} />
@@ -31,7 +31,7 @@ const Profile = ({ user, status, error, toMain, updateProfile }) => {
 			</div>
 			<div id="dob">
 				<div id="fieldDOB">Date of Birth: </div>
-				<div id="oldDOB">{user.dob}</div>
+				<div id="oldDOB">{new Date(user.dob).toLocaleDateString()}</div>
 				<input type="date" id="newDOB" hidden/>
 			</div>
 			<div id="zip">
@@ -64,7 +64,9 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        toMain: () => {dispatch(toMain())},
+        viewMain: () => {viewMain()(fn => fn((action) => {
+                dispatch(action)
+            }))},
 		updateProfile: () => {
 			var newFields = {
 				displayname: document.getElementById("newName").value,
@@ -74,7 +76,9 @@ const mapDispatchToProps = (dispatch) => {
 				password: document.getElementById("newPassword").value,
 				passwordConfirm: document.getElementById("newPasswordConfirm").value
 			}
-			updateProfile(newFields)(dispatch)
+			updateProfile(newFields)(fn => fn((action) => {
+                dispatch(action)
+            }))
 		}
     }
 }

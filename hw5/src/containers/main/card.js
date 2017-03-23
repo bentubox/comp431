@@ -3,13 +3,21 @@ import {connect} from 'react-redux'
 
 const Card = ({ article, editArticle, addComment }) => {
     return(<span>
-        <p id="articleInfo">Posted by { article.author } at { new Date(article.timestamp).toUTCString() }</p>
+        <p id="articleInfo">Posted by { article.author } at { new Date(article.date).toUTCString() }</p>
+        <img id="articlePic" src={ article.pic }/>
+        <p id="articleText">{ article.text }</p>
         <div id="articlebuttons">
             <button id="editButton" onClick={ editArticle }>EDIT</button>
             <button id="commentButton" onClick={ addComment }>Comment</button>
         </div>
-        <img id="articlePic" src={ article.pic }/>
-        <p id="articleText">{ article.text }</p>
+        <div>
+            <p>Comments</p>
+            {article.comments.map(comment => 
+                <div key={ comment.commentId } className="comment">
+                    {comment.text}
+                </div>
+            )}
+        </div>
     </span>)
 }
 

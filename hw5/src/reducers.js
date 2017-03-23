@@ -13,122 +13,111 @@ export const initialState = {
 const Reducer = (state = initialState, action) => {
     switch (action.type) {
         case Actions.CHANGE_PAGE:
-            return {...state,
+            return Object.assign({}, {...state,
                 location: action.location,
-            }
+            })
         case Actions.LOG_IN:
-            return {...state,
+            return Object.assign({}, {...state,
                 user: {
                     ...state.user,
-                    username: action.username,
-                    password: action.password,
+                    username: action.username
                 },
-            }
+            })
         case Actions.LOG_OUT:
-            return {...state,
+            return Object.assign({}, {...state,
                 user: nullUser,
                 searchCrit: ""
-            }
+            })
         case Actions.REGISTER:
-            return {...state,
-                user: {...state.user, ...action.user},
-            }
+            // New users are not currently maintained.
+            return Object.assign({}, {...state })
         case Actions.UPDATE_STATUS:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
                     status: action.status
                 }
-            }
+            })
         case Actions.UPDATE_AVATAR:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
                     pic: action.pic
                 }
-            }
+            })
         case Actions.LOAD_FOLLOWERS:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
-                    followers: action.followers
+                    followers: [].concat(action.followers)
                 }
-            }
+            })
         case Actions.UPDATE_DOB:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
                     dob: action.dob
                 }
-            }
+            })
         case Actions.UPDATE_EMAIL:
-            return {...state,
+            return Object.assign({}, {...state,
                 user: {
                     ...state.user,
                     email: action.email,
                 },
-            }
+            })
         case Actions.UPDATE_ZIPCODE:
-            return {...state,
+            return Object.assign({}, {...state,
                 user: {
                     ...state.user,
-                    zipcode: action.zip,
+                    zip: action.zip,
                 },
-            }
+            })
         case Actions.UPDATE_PASSWORD:
-            return {...state,
+            return Object.assign({}, {...state,
                 user: {
                     ...state.user,
                     password: action.password,
                 },
-            }
+            })
         case Actions.REMOVE_FOLLOWER:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
                     followers: state.user.followers.filter(({id}) => { return (id != action.id) })
                 }
-            }
+            })
         case Actions.ADD_FOLLOWER:
-            return {
+            return Object.assign({}, {
                 ...state,
                 user: {
                     ...state.user,
                     followers: [...state.user.followers,
-                        {   id: action.id,
-                            displayname: action.displayname,
-                            pic: defaultPics[Math.floor(Math.random()*defaultPics.length)],
-                            status: defaultStatuses[Math.floor(Math.random()*defaultStatuses.length)]
-                        }]
+                        action.follower
+                    ]
                 }
-            }
-        case Actions.POST_ARTICLE:
-            return {
+            })
+        case Actions.LOAD_ARTICLES:
+            return Object.assign({}, {
                 ...state,
-                articles: [...state.articles, { 
-                    id: action.id,
-                    author: action.author,
-                    timestamp: action.time,
-                    text: action.text,
-                    pic: ""
-                }]
-            }
+                articles: action.articles
+            })
         case Actions.SEARCH:
-            return {
+            return Object.assign({}, {
                 ...state,
-                searchCrit: action.criteria
-            }
+                searchCrit: action.keyword
+            })
         case Actions.ERROR:
-            return { ...state, message: action.message, error: true }
+            return Object.assign({}, { ...state, message: action.message, error: true })
         case Actions.SUCCESS:
-            return { ...state, message: action.message, error: false }
+            return Object.assign({}, { ...state, message: action.message, error: false })
         default:
-        return state
+            return Object.assign({}, state)
     }
 }
 

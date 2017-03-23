@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 
 import { register } from './authActions'
 
-const Register = ({status, error, regUser}) => {
+const Register = ({regUser}) => {
     return (<span>
         <form id="RegistrationForm" method="GET" action="#">
             <h1>NEW USER REGISTRATION</h1>
@@ -17,15 +17,10 @@ const Register = ({status, error, regUser}) => {
             <p>Password Confirmation*: <input type="password" id="password1" placeholder="Confirm Password" required /></p>
             <input type="hidden" id="timestamp" value="" />
             <p>*required field</p>
-            <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
             <input type="button" value="Create Account" onClick={ regUser } />
             <input type="reset" value="Clear Form" />
         </form>
     </span>)
-}
-
-const mapStateToProps = (state) => {
-    return {status: state.message, error: state.error}
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -41,13 +36,15 @@ const mapDispatchToProps = (dispatch) => {
                 password: document.getElementById("password0").value,
                 passwordconfirm: document.getElementById("password1").value
             }
-            register(regFields)(dispatch)
+            register(regFields)(fn => fn((action) => {
+                dispatch(action)
+            }))
         }
     }
 }
 
 const RegisterContainer = connect(
-    mapStateToProps,
+    null,
     mapDispatchToProps
 )(Register)
 

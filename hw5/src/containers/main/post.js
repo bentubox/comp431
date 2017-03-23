@@ -25,11 +25,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         addArticle: (author) => {
-            dispatch(addArticle(
-                author,
-                new Date(),
-                document.getElementById("postArticle").value
-            ))
+            addArticle(document.getElementById("postArticle").value)(fn => fn((action) => {
+                dispatch(action)
+            }))
         }
     }
 }

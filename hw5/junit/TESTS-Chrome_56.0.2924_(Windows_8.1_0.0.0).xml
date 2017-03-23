@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<testsuite name="Chrome 56.0.2924 (Windows 8.1 0.0.0)" package="" timestamp="2017-03-23T04:17:00" id="0" hostname="BenTuBox" tests="23" errors="0" failures="0" time="0.022">
+  <properties>
+    <property name="browser.fullName" value="Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"/>
+  </properties>
+  <testcase name="Validate actions resource should be a resource" time="0.003" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions resource should give http error" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions resource should be postable" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions should update error message" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions should update success message" time="0.001" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions should navigate to landing page" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions should navigate to main page" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate actions should navigate to profile page" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate actions"/>
+  <testcase name="Validate authentication should log in a user" time="0.014" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate authentication"/>
+  <testcase name="Validate authentication should not log in an invalid user" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate authentication"/>
+  <testcase name="Validate authentication should log out a user" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate authentication"/>
+  <testcase name="Validate article actions should fetch articles" time="0.001" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate article actions"/>
+  <testcase name="Validate article actions should update the search keyword" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate article actions"/>
+  <testcase name="Validate article view components should render articles" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate article view components"/>
+  <testcase name="Validate article view components should dispatch actions to create new articles" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate article view components"/>
+  <testcase name="Validate profile actions should fetch profile information for the user" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate profile actions"/>
+  <testcase name="Validate profile actions should update headline" time="0.002" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate profile actions"/>
+  <testcase name="Validate reducer should initialize state" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <testcase name="Validate reducer should state success" time="0.001" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <testcase name="Validate reducer should state error" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <testcase name="Validate reducer should set articles" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <testcase name="Validate reducer should set search keyword" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <testcase name="Validate reducer should filter displayed articles based on search keyword" time="0" classname="Chrome_56_0_2924_(Windows_8_1_0_0_0).Validate reducer"/>
+  <system-out>
+    <![CDATA[
+]]>
+  </system-out>
+  <system-err/>
+</testsuite>
