@@ -16,17 +16,37 @@ const postArticle = (req, res) => {
 }
 
 const getArticles = (req, res) => {
-    const id = parseInt(req.params.id.substr(1))
-    if(isNaN(id)){
+    const _id = parseInt(req.params.id)
+    if(isNaN(_id)){
         res.send(articleBank)
-    } else if (id < articleID){
-        res.send([articleBank.articles[id]])
-    } else{
-        res.send({})
+    } else {
+        const _articles = articleBank.articles.filter(({id}) => { return id === _id })
+        if (_articles.length > 0){
+            res.send(_articles[0])
+        } else{
+            res.send({})
+        }
     }
 }
 
+const hello = (req, res) => {
+    res.send({ "message": "Hi there."})
+}
+
+const stub = (req, res) => {
+    res.send({ "message": "Not implemented." })
+}
+
 module.exports = (app) => {
-	app.get('/articles/:id', getArticles)
+	app.get('', hello)
+    app.get('/articles/:id?', getArticles)
     app.post('/article', postArticle)
+    app.get('/headlines/:id?', stub)
+    app.put('/headline', stub)
+    app.get('/email/:id?', stub)
+    app.put('/email', stub)
+    app.get('/zipcode/:id?', stub)
+    app.put('/zipcode', stub)
+    app.get('/avatars/:id?', stub)
+    app.put('/avatar', stub)
 }
