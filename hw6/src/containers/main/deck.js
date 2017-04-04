@@ -5,13 +5,13 @@ import CardContainer from './card'
 
 const Deck = ({articles}) => {
     return (<span>
-                <div id="deck">
-                    {articles.map(article => 
-                        <div key={ article._id } className="articleCard">
-                            <CardContainer article = {article}/>
-                        </div>
-                    )}
-                </div>
+            <div id="deck">
+                {articles.map(article => 
+                    <div key={ article._id } className="articleCard">
+                        <CardContainer article = {article}/>
+                    </div>
+                )}
+            </div>
         </span>
     )
 }

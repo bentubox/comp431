@@ -7,7 +7,10 @@ export const initialState = {
     message: "",
     error: false,
     searchCrit: "",
-    articles: []
+    articles: [],
+    editArticleArray: [],
+    addCommentArray: [],
+    editCommentArray: []
 }
 
 const Reducer = (state = initialState, action) => {
@@ -105,7 +108,37 @@ const Reducer = (state = initialState, action) => {
         case Actions.LOAD_ARTICLES:
             return Object.assign({}, {
                 ...state,
-                articles: action.articles
+                articles: [].concat(action.articles)
+            })
+        case Actions.EDIT_ARTICLE:
+            return Object.assign({}, {
+                ...state,
+                editArticleArray: [...state.editArticleArray, action.articleId]
+            })
+         case Actions.CANCEL_EDIT:
+            return Object.assign({}, {
+                ...state,
+                editArticleArray: state.editArticleArray.filter((id) => { return (id != action.articleId) })
+            })   
+        case Actions.ADD_COMMENT:
+            return Object.assign({}, {
+                ...state,
+                addCommentArray:[...state.addCommentArray, action.articleId]
+            })
+        case Actions.EDIT_COMMENT:
+            return Object.assign({}, {
+                ...state,
+                editCommentArray: [...state.editCommentArray, action.commentId]
+            })
+        case Actions.CANCEL_EDIT_COMMENT:
+            return Object.assign({}, {
+                ...state,
+                editCommentArray: state.editCommentArray.filter((id) => { return (id != action.commentId) })
+            })
+        case Actions.CANCEL_COMMENT:
+            return Object.assign({}, {
+                ...state,
+                addCommentArray: state.addCommentArray.filter((id) => { return (id != action.articleId) })
             })
         case Actions.SEARCH:
             return Object.assign({}, {

@@ -27,8 +27,11 @@ export const REMOVE_FOLLOWER = 'REMOVE_FOLLOWER'
 export const ADD_FOLLOWER = 'ADD_FOLLOWER'
 export const LOAD_ARTICLES = 'LOAD_ARTICLES'
 export const EDIT_ARTICLE = 'EDIT_ARTICLE'
-export const POST_COMMENT = 'POST_COMMENT'
+export const CANCEL_EDIT = 'CANCEL_EDIT'
+export const ADD_COMMENT = 'ADD_COMMENT'
 export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const CANCEL_COMMENT = 'CANCEL_COMMENT'
+export const CANCEL_EDIT_COMMENT = 'CANCEL_EDIT_COMMENT'
 export const SEARCH = 'SEARCH'
 
 // Server Communication
@@ -122,4 +125,17 @@ const dispatchLoadArticles = (articles) => (dispatch) => dispatch({ type: LOAD_A
 
 const dispatchFilterArticles = (keyword) => (dispatch) => dispatch({ type: SEARCH, keyword })
 
-export { dispatchRemoveFollower, dispatchAddFollower, dispatchLoadArticles, dispatchFilterArticles}
+const dispatchEditArticle = (articleId) => (dispatch) => dispatch({ type: EDIT_ARTICLE, articleId: articleId})
+
+const dispatchCancelEdit = (articleId) => (dispatch) => dispatch({ type: CANCEL_EDIT, articleId: articleId})
+
+const dispatchAddComment = (articleId) => (dispatch) => dispatch({ type: ADD_COMMENT, articleId: articleId})
+
+const dispatchEditComment = (commentId) => (dispatch) => dispatch({ type: EDIT_COMMENT, commentId: commentId})
+
+const dispatchCancelComment = (articleId) => (dispatch) => dispatch({ type: CANCEL_COMMENT, articleId: articleId})
+
+const dispatchCancelEditComment = (commentId) => (dispatch) => dispatch({ type: CANCEL_EDIT_COMMENT, commentId: commentId })
+
+export { dispatchRemoveFollower, dispatchAddFollower, dispatchLoadArticles, dispatchFilterArticles, dispatchEditArticle, 
+  dispatchCancelEdit, dispatchAddComment, dispatchEditComment, dispatchCancelComment, dispatchCancelEditComment }

@@ -77,7 +77,75 @@ const addArticle = (text) => (dispatch) => {
     }
 }
 
-// TODO: Add actions for editing articles and adding comments.
+const startEditArticle = (articleId) => (dispatch) => {
+    dispatch(Actions.dispatchEditArticle(articleId))
+}
+
+const editArticle = (id, text) => (dispatch) => {
+    if (text.length){
+        Actions.resource('PUT', `articles/${id}`, {text: text})
+        .then( (response) => {
+            const articles = response.articles[0]
+            dispatch(Actions.reportSuccess('Edited article!'))
+            loadArticles(response.articles[0].author)((action) => {
+                dispatch(action)
+            })
+        }).catch( (err) => {
+            dispatch(Actions.reportError(`Could not edit this article! ERROR: ${err.message}`))
+        })
+    }
+}
+
+const cancelEdit = (articleId) => (dispatch) => {
+    dispatch(Actions.dispatchCancelEdit(articleId))
+}
+
+const addComment = (articleId) => (dispatch) => {
+    dispatch(Actions.dispatchAddComment(articleId))
+}
+
+const cancelComment = (articleId) => (dispatch) => {
+    dispatch(Actions.dispatchCancelComment(articleId))
+}
+
+const postComment = (articleId, text) => (dispatch) => {
+    if (text.length){
+        Actions.resource('PUT', `articles/${articleId}`, {text: text, commentId: -1})
+        .then( (response) => {
+            const articles = response.articles[0]
+            dispatch(Actions.reportSuccess('Added comment!'))
+            loadArticles(response.articles[0].author)((action) => {
+                dispatch(action)
+            })
+        }).catch( (err) => {
+            dispatch(Actions.reportError(`Could not comment on this article! ERROR: ${err.message}`))
+        })
+    }
+}
+
+const startEditComment = (commentId) => (dispatch) => {
+    dispatch(Actions.dispatchEditComment(commentId))
+}
+
+const editComment = (articleId, commentId, text) => (dispatch) => {
+    if (text.length){
+        Actions.resource('PUT', `articles/${articleId}`, {text: text, commentId: commentId})
+        .then( (response) => {
+            const articles = response.articles[0]
+            dispatch(Actions.reportSuccess('Edited comment!'))
+            loadArticles(response.articles[0].author)((action) => {
+                dispatch(action)
+            })
+        }).catch( (err) => {
+            dispatch(Actions.reportError(`Could not edit this comment! ERROR: ${err.message}`))
+        })
+    }
+}
+
+const cancelEditComment = (commentId) => (dispatch) => {
+    dispatch(Actions.dispatchCancelEditComment(commentId))
+}
+
 
 // Action for changing article search criteria.
 const filterArticles = (criteria) => (dispatch) => {
@@ -85,4 +153,5 @@ const filterArticles = (criteria) => (dispatch) => {
     dispatch(Actions.reportSuccess('Updated article search criteria!'))
 }
 
-export { viewProfile, removeFollower, addFollower, loadArticles, addArticle, filterArticles}
+export { viewProfile, removeFollower, addFollower, loadArticles, addArticle, startEditArticle, editArticle, 
+    cancelEdit, addComment, cancelComment, postComment, startEditComment, editComment, cancelEditComment, filterArticles}

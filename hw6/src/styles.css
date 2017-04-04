@@ -331,6 +331,12 @@ input {
 	padding: 5px;
 }
 
+#editArticle {
+	width: 100%;
+	border-style: solid;
+	border-color: yellow;
+}
+
 .comment {
 	display: block;
 	background-color: snow;
@@ -338,6 +344,18 @@ input {
 	border-radius: 3px;
 	border-color: lightgray;
 	padding: 3px;
+	padding-left: 8px;
 	margin-left: 30px;
 	margin-bottom: 5px;
+}
+
+#editComment {
+    width: 100%;
+	border-style: solid;
+	border-color: yellow;
+}
+
+#commentAuthor{
+    font-weight: bold;
+	font-size: 16px;
 }
