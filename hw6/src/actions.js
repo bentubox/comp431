@@ -45,7 +45,7 @@ const resource = (method, endpoint, payload) => {
     }
   }
   if (payload) options.body = JSON.stringify(payload)
-
+  console.log(options)
   return fetch(`${url}/${endpoint}`, options)
     .then(r => {
       if (r.status === 200) {

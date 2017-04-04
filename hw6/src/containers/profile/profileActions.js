@@ -8,7 +8,7 @@ const viewMain = () => (dispatch) => {
 }
 
 // Perform form verification before dispatching user update action.
-const updateProfile = (newFields) => (dispatch) => {
+const updateProfile = (newFields, fd) => (dispatch) => {
     var pattern
     // Verify name field.
     if(newFields.displayname.length != 0){
@@ -75,6 +75,27 @@ const updateProfile = (newFields) => (dispatch) => {
         } else{
             dispatch(Actions.reportError('Passwords do not match!'))
         }		
+    }
+
+    // Upload image.
+    if (fd){
+        const options =  {
+            method: 'PUT',
+            credentials: 'include',
+            body: fd
+        }
+        return fetch(`${Actions.url}/avatar`, options)
+        .then(r => {
+        if (r.status === 200) {
+            return (r.headers.get('Content-Type').indexOf('json') > 0) ? r.json() : r.text()
+        } else {
+            throw new Error(r.statusText)
+        }
+        }).then( (body) => {
+            dispatch(Actions.updateField("AVATAR", body.avatar))
+        }).catch( (err) => {
+            dispatch(Actions.reportError(`Could not load new avatar for user! ERROR: ${err.message}`))
+        })
     }
 }
 

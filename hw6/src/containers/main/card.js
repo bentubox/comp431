@@ -8,7 +8,7 @@ const Card = ({ username, newCommentArray, articleEditArray, article, editArticl
     let articleText, commentInput
     return(<span>
         <p id="articleInfo">Posted by { article.author } at { new Date(article.date).toUTCString() }</p>
-        <img id="articlePic" src={ article.pic }/>
+        <img id="articlePic" src={ article.img }/>
         <p id="articleText" >{ article.text }</p>
         {articleEditArray.find((articleId) => { return articleId == article._id }) ? (
                 <div>

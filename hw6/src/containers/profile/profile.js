@@ -4,12 +4,12 @@ import { connect } from 'react-redux'
 import { viewMain, updateProfile } from './profileActions'
 
 const Profile = ({ user, status, error, viewMain, updateProfile }) => {
-	let nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput
+	let imageUpload, nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput
     return (<span>
         <h1>PROFILE</h1>
 		<a onClick={ viewMain }>HOME</a>
 		<div>
-			<input type="file" id="picUpload" accept="image/*" />
+			<input type="file" id="picUpload" accept="image/*" ref={ (node) => imageUpload = node }/>
 			<img id="profilepic" src={user.pic} />
 		
 		</div>
@@ -49,7 +49,7 @@ const Profile = ({ user, status, error, viewMain, updateProfile }) => {
 			<p><font color={error ? "red" : "lime"}>{status} </font></p>
 		</div>
 		<div id="buttons">
-			<button type="submit" id="update" onClick={ () => updateProfile(nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput) }>UPDATE PROFILE</button>
+			<button type="submit" id="update" onClick={ () => updateProfile(nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput, imageUpload) }>UPDATE PROFILE</button>
 		</div>
     </span>)
 }
@@ -67,7 +67,7 @@ const mapDispatchToProps = (dispatch) => {
         viewMain: () => {viewMain()(fn => fn((action) => {
                 dispatch(action)
             }))},
-		updateProfile: (nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput) => {
+		updateProfile: (nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput, avatar) => {
 			var newFields = {
 				displayname: nameInput.value,
 				email: emailInput.value,
@@ -76,9 +76,17 @@ const mapDispatchToProps = (dispatch) => {
 				password: passwordInput.value,
 				passwordConfirm: passwordConfirmInput.value
 			}
-			updateProfile(newFields)(fn => fn((action) => {
-                dispatch(action)
-            }))
+			const fd = new FormData()
+			if (avatar.files.length > 0){
+				fd.append('image', avatar.files[0])
+				updateProfile(newFields, fd)(fn => fn((action) => {
+					dispatch(action)
+				}))
+			} else{
+				updateProfile(newFields)(fn => fn((action) => {
+					dispatch(action)
+				}))
+			}
 		}
     }
 }

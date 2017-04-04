@@ -62,13 +62,24 @@ const loadArticles = (user) => (dispatch) => {
 }
 
 // Action for adding a new Article.
-const addArticle = (text) => (dispatch) => {
-    if (text.length){
-        Actions.resource('POST', 'article', {text: text})
-        .then( (response) => {
-            const articles = response.articles[0]
+const addArticle = (fd) => (dispatch) => {
+    if (fd.get('text').length){
+        const options =  {
+            method: 'POST',
+            credentials: 'include',
+            body: fd
+        }
+        return fetch(`${Actions.url}/article`, options)
+        .then(r => {
+        if (r.status === 200) {
+            return (r.headers.get('Content-Type').indexOf('json') > 0) ? r.json() : r.text()
+        } else {
+            throw new Error(r.statusText)
+        }
+        }).then( (body) => {
+            const articles = body.articles[0]
             dispatch(Actions.reportSuccess('Added new article!'))
-            loadArticles(response.articles[0].author)((action) => {
+            loadArticles(articles.author)((action) => {
                 dispatch(action)
             })
         }).catch( (err) => {

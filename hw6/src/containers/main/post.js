@@ -10,7 +10,7 @@ const Post = ({user, addArticle}) => {
             <textarea id="postArticle" rows={8} cols={100} overflow="scroll" placeholder="Say dumb stuff to your friends." ref={ (node) => textInput = node }></textarea>
             <input type="file" id="postPic" accept="image/*" ref={ (node) => imageInput = node }/> 
             <div id="postButtons">
-                <input type="button" value="SHARE" onClick={ () => { addArticle(textInput)} } />
+                <input type="button" value="SHARE" onClick={ () => { addArticle(textInput, imageInput)} } />
                 <input type="reset" value="Cancel" /> 
             </div >
         </form>
@@ -25,8 +25,13 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addArticle: (textInput) => {
-            addArticle(textInput.value)(fn => fn((action) => {
+        addArticle: (textInput, imageInput) => {
+            const fd = new FormData()
+            fd.append('text', textInput.value)
+			if (imageInput.files.length > 0){
+				fd.append('image', imageInput.files[0])
+			}
+            addArticle(fd)(fn => fn((action) => {
                 dispatch(action)
             }))
         }
