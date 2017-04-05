@@ -96,7 +96,6 @@ const editArticle = (id, text) => (dispatch) => {
     if (text.length){
         Actions.resource('PUT', `articles/${id}`, {text: text})
         .then( (response) => {
-            const articles = response.articles[0]
             dispatch(Actions.reportSuccess('Edited article!'))
             loadArticles(response.articles[0].author)((action) => {
                 dispatch(action)
@@ -123,7 +122,6 @@ const postComment = (articleId, text) => (dispatch) => {
     if (text.length){
         Actions.resource('PUT', `articles/${articleId}`, {text: text, commentId: -1})
         .then( (response) => {
-            const articles = response.articles[0]
             dispatch(Actions.reportSuccess('Added comment!'))
             loadArticles(response.articles[0].author)((action) => {
                 dispatch(action)
@@ -142,7 +140,6 @@ const editComment = (articleId, commentId, text) => (dispatch) => {
     if (text.length){
         Actions.resource('PUT', `articles/${articleId}`, {text: text, commentId: commentId})
         .then( (response) => {
-            const articles = response.articles[0]
             dispatch(Actions.reportSuccess('Edited comment!'))
             loadArticles(response.articles[0].author)((action) => {
                 dispatch(action)

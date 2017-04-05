@@ -1,6 +1,5 @@
 import * as Actions from '../../actions'
 import * as ProfileActions from '../profile/profileActions'
-import * as MainActions from '../main/mainActions'
 
 // Landing page actions.
 // Perform verification before sending POST request. Dispatch change page action and update state upon response.
