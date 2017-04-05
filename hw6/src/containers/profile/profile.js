@@ -46,7 +46,7 @@ const Profile = ({ user, status, error, viewMain, updateProfile }) => {
 			</div>
 		</div>
 		<div id="info">
-			<p><font color={error ? "red" : "lime"}>{status} </font></p>
+			<p id="statusProfile"><font color={error ? "red" : "lime"}>{status} </font></p>
 		</div>
 		<div id="buttons">
 			<button type="submit" id="update" onClick={ () => updateProfile(nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput, imageUpload) }>UPDATE PROFILE</button>

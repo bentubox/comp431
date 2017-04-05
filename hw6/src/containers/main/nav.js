@@ -8,14 +8,14 @@ const Nav = ({viewProfile, logOut, filterArticles}) => {
     let textInput
     return (<span>
         <div id="navButtons">
-            <a onClick={ viewProfile }>MY PROFILE</a>
+            <a id="mainToProfilebtn" onClick={ viewProfile }>MY PROFILE</a>
             <a onClick={ logOut }>LOG OUT</a>
         </div>
         <div id="pageFilter">
              <form method="GET" action="#">
                 Filter Page:
                 <input type="search" id="filterInput" placeholder="Filter Articles" ref={ (node) => textInput = node }/>
-                <input type="button" value="SEARCH" onClick={ () => filterArticles(textInput) }/>
+                <input type="button" id = "filterbtn" value="SEARCH" onClick={ () => filterArticles(textInput) }/>
             </form>  
         </div>
     </span>)

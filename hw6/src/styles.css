@@ -33,7 +33,7 @@ p {
 	padding: 0px;
 }
 
-#status {
+#statusLanding, #statusMain, statusProfile {
 	margin-top: 0px;
 	margin-left: 20px;
 }

@@ -8,7 +8,7 @@ import SortedDeck from './deck'
 
 const Main = ({status, error}) => {
     return (<span>
-        <p id="status"><font color={error ? "red" : "lime"}>{status} </font></p>
+        <p id="statusMain"><font color={error ? "red" : "lime"}>{status} </font></p>
         <h1>MAIN</h1>
         <NavContainer />
         <SidebarContainer />

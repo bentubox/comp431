@@ -18,7 +18,7 @@ const Register = ({regUser}) => {
             <p>Password Confirmation*: <input type="password" id="password1" placeholder="Confirm Password" required ref={ (node) => passwordConfirmInput = node }/></p>
             <input type="hidden" id="timestamp" value="" />
             <p>*required field</p>
-            <input type="button" value="Create Account" onClick={ () => regUser(nameInput, displayNameInput, emailInput, phoneInput, dobInput, zipInput, passwordInput, passwordConfirmInput) } />
+            <input type="button" id="regbtn" value="Create Account" onClick={ () => regUser(nameInput, displayNameInput, emailInput, phoneInput, dobInput, zipInput, passwordInput, passwordConfirmInput) } />
             <input type="reset" value="Clear Form" />
         </form>
     </span>)
