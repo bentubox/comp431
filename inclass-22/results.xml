@@ -1,0 +1,13 @@
+
+> backend@1.0.0 test C:\Users\Ben\Documents\GitHub\hw6
+> mocha --opts mocha.opts src/**/*.spec.js "--reporter" "xunit"
+
+<testsuite name="Mocha Tests" tests="7" failures="0" errors="0" skipped="0" timestamp="Tue, 04 Apr 2017 16:19:25 GMT" time="0.386">
+<testcase classname="Test of backend article functionality" name="should return at least 3 articles" time="0.039"/>
+<testcase classname="Test of backend article functionality" name="should return an article with a specified id" time="0.011"/>
+<testcase classname="Test of backend article functionality" name="should return nothing for an invalid id" time="0.01"/>
+<testcase classname="Test of backend article functionality" name="should add two articles with successive article ids, and return the article each time" time="0.252"/>
+<testcase classname="Test of backend headline functionality for user profiles" name="should retrieve the headline for the default user" time="0.012"/>
+<testcase classname="Test of backend headline functionality for user profiles" name="should retrieve the proper headline from memory for specified users" time="0.008"/>
+<testcase classname="Test of backend headline functionality for user profiles" name="should update the headline in memory for the default user" time="0.006"/>
+</testsuite>
