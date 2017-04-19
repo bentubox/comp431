@@ -7,35 +7,35 @@ const viewProfile = () => (dispatch) => {
 }
 
 // Action for removing follower from user.
-const removeFollower = (id) => (dispatch) => {
-    Actions.resource('DELETE', `following/${id}`)
+const removeFollower = (username) => (dispatch) => {
+    Actions.resource('DELETE', `following/${username}`)
     .then( (response) => {
-        dispatch(Actions.dispatchRemoveFollower(id))
+        dispatch(Actions.dispatchRemoveFollower(username))
         dispatch(Actions.reportSuccess(`Removed follower!`))
         loadArticles()((action) => {
             dispatch(action)
         })
     }).catch( (err) => {
-        dispatch(Actions.reportError(`Could not remove follower ${id}! ERROR: ${err.message}`))
+        dispatch(Actions.reportError(`Could not remove follower ${username}! ERROR: ${err.message}`))
     })
 }
 
 // Action for adding follower to user.
-const addFollower = (id) => (dispatch) => {
-    if(id.length){
-        Actions.resource('PUT', `following/${id}`)
+const addFollower = (username) => (dispatch) => {
+    if(username.length){
+        Actions.resource('PUT', `following/${username}`)
         .then( (response) => {
-            const follower = {id: id}
+            const follower = {username: username}
             Promise.all([
-                Actions.resource('GET', `headlines/${id}?`).then( (rh) => {
+                Actions.resource('GET', `headlines/${username}?`).then( (rh) => {
                     follower.status = rh.headlines[0].headline
                 }).catch( (err) => {
-                    dispatch(Actions.reportError(`Could not get new follower info for ${id}! ERROR: ${err.message}`))
+                    dispatch(Actions.reportError(`Could not get new follower info for ${username}! ERROR: ${err.message}`))
                 }),
-                Actions.resource('GET', `avatars/${id}?`).then( (ra) => {
+                Actions.resource('GET', `avatars/${username}?`).then( (ra) => {
                     follower.pic = ra.avatars[0].avatar
                 }).catch( (err) => {
-                    dispatch(Actions.reportError(`Could not get follower avatar for ${id}! ERROR: ${err.message}`))
+                    dispatch(Actions.reportError(`Could not get follower avatar for ${username}! ERROR: ${err.message}`))
                 })
             ]).then( () => {
                 // Update state if follower count increases.
@@ -46,7 +46,7 @@ const addFollower = (id) => (dispatch) => {
                 })
             })
         }).catch( (err) => {
-            dispatch(Actions.reportError(`Could not add follower ${id}! ERROR: ${err.message}`))
+            dispatch(Actions.reportError(`Could not add follower ${username}! ERROR: ${err.message}`))
         })
     }
 }

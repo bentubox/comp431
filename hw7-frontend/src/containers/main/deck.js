@@ -18,7 +18,7 @@ const Deck = ({articles}) => {
 
 const filterAndSortCards = (articles, crit) => {
     return articles.sort((a1, a2) => {
-        return new Date(a2.timestamp).getTime() - new Date(a1.timestamp).getTime()
+        return new Date(a2.date).getTime() - new Date(a1.date).getTime()
     }).filter(({author, text}) => { return text && (text.toLowerCase().includes(crit.toLowerCase()) || crit.toLowerCase().includes(author.toLowerCase()))})
 }
 

@@ -8,16 +8,16 @@ const Comment = ({ username, commentEditArray, articleId, comment, editComment, 
     return(<span>
         <div className="comment">
             <p id="comment">{comment.text}</p>
-            {commentEditArray.find((id) => { return id == comment.commentId }) ? (
+            {commentEditArray.find((id) => { return id == comment._id }) ? (
                 <div>
                     <textarea id="editComment" overflow="scroll" placeholder={ comment.text } ref={ (node) => commentText = node }></textarea>
-                    <button id="cancelEditButton" onClick={ () => cancelEdit(comment.commentId) }>CANCEL</button>
-                    <button id="saveButton" onClick={ () => saveComment(articleId, comment.commentId, commentText) }>SAVE</button>
+                    <button id="cancelEditButton" onClick={ () => cancelEdit(comment._id) }>CANCEL</button>
+                    <button id="saveButton" onClick={ () => saveComment(articleId, comment._id, commentText) }>SAVE</button>
                 </div>
             ) : (
                 <div>
                     {comment.author === username ? (
-                        <button id="editButton" onClick={ () => editComment(comment.commentId) }>EDIT</button>
+                        <button id="editButton" onClick={ () => editComment(comment._id) }>EDIT</button>
                     ) : (
                         <button id="editButton" disabled>EDIT</button>
                     )}

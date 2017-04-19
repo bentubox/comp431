@@ -47,7 +47,6 @@ const resource = (method, endpoint, payload) => {
     }
   }
   if (payload) options.body = JSON.stringify(payload)
-  console.log(options)
   return fetch(`${url}/${endpoint}`, options)
     .then(r => {
       if (r.status === 200) {
@@ -119,7 +118,7 @@ const updateField = (field, newValue) => (dispatch) => {
 export { updateField }
 
 // Main Page actions.
-const dispatchRemoveFollower = (id) => (dispatch) => dispatch({ type: REMOVE_FOLLOWER, id })
+const dispatchRemoveFollower = (username) => (dispatch) => dispatch({ type: REMOVE_FOLLOWER, username })
 
 const dispatchAddFollower = (follower) => (dispatch) => dispatch({ type: ADD_FOLLOWER, follower })
 

@@ -92,7 +92,7 @@ const Reducer = (state = initialState, action) => {
                 ...state,
                 user: {
                     ...state.user,
-                    followers: state.user.followers.filter(({id}) => { return (id != action.id) })
+                    followers: state.user.followers.filter(({username}) => { return (username != action.username) })
                 }
             })
         case Actions.ADD_FOLLOWER:

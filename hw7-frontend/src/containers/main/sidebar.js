@@ -18,9 +18,9 @@ const Sidebar = ({user, followers, updateStatus, addFollower, removeFollower}) =
             </div>
             <div id="followers">
                 {followers.map(follower => 
-                    <div id="follower" key={follower.id}>
+                    <div id="follower" key={follower.username}>
                         <Headline user={ follower }/>
-                        <button id="removeFollower" onClick={ () => {removeFollower(follower.id)} } >Unfollow</button>
+                        <button id="removeFollower" onClick={ () => {removeFollower(follower.username)} } >Unfollow</button>
                     </div>
                 )}
             </div>

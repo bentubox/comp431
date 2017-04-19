@@ -66,9 +66,8 @@ const updateProfile = (newFields, fd) => (dispatch) => {
     if (newFields.password.length != 0 && newFields.passwordConfirm.length != 0){
         if (newFields.password === newFields.passwordConfirm) {
             Actions.resource('PUT', 'password', {password: newFields.password}).then( (response) => {
-                // Server does not support password update. Only nonpersistent local update is performed.
                 dispatch(Actions.updateField("PASSWORD", newFields.password))
-                dispatch(Actions.reportSuccess(`Message from server for password change: ${response.message}`))
+                dispatch(Actions.reportSuccess(`Message from server for password change: ${response.status}`))
             }).catch( (err) => {
                 dispatch(Actions.reportError(`Password was not updated successfully! ERROR: ${err.message}`))
             })
@@ -117,7 +116,7 @@ const loadProfile = (username) => (dispatch) => {
     Actions.resource('GET', `following/${username}?`).then( (r) => {
         // Load info for followers as well.
         const followers = r.following.map((id) => {
-            const follower = {id: id}
+            const follower = {username: id}
             Promise.all([
                 Actions.resource('GET', `headlines/${id}?`).then( (rh) => {
                     follower.status = rh.headlines[0].headline
