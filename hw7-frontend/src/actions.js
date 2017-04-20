@@ -36,7 +36,8 @@ export const SEARCH = 'SEARCH'
 
 // Server Communication
 // const url = 'https://webdev-dummy.herokuapp.com
-const url = 'http://localhost:3000'
+// const url = 'http://localhost:3000'
+const url = 'https://dry-escarpment-37510.herokuapp.com'
 
 const resource = (method, endpoint, payload) => {
   const options =  {
