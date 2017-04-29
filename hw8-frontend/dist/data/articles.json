@@ -1,0 +1,60 @@
+{
+    "initialArticles" :[
+        { 
+            "id": 0,
+            "author": "Jack",
+            "timestamp": "2017-01-01T08:56:00Z", 
+            "text": "Jack Shephard (Matthew Fox) and Miles Straume (Ken Leung), calling himself Marvin Candle, argue about what to do about leader of the Others, Ben Linus (Michael Emerson), and Miles's colleague Charlotte, both sought after by Miles and his colleagues and taken prisoner by Locke. Sayid pays his respects to Naomi Dorrit, and takes her bracelet.", 
+            "pic": "/images/Scene2.jpg"
+        },
+        { 
+            "id": 1,
+            "author": "Jack",
+            "timestamp": "2017-02-14T11:32:00Z", 
+            "text": "Achille Cantoni was only 15 years old when joined as a volunteer with the patriotic forces of Italy, or the Redshirts. He was likely part of Garibaldi’s military corps Hunters of the Alps, which brought together Italian volunteers to fight in the Second Italian War of Independence (also known as the Franco-Austrian War) and the Third Italian War of Independence. Cantoni fought in both of these wars.", 
+            "pic": "https://upload.wikimedia.org/wikipedia/commons/f/f0/Achille_Cantoni.jpg"
+        },
+        { 
+            "id": 2,
+            "author": "Jane",
+            "timestamp": "2017-01-08T03:22:00Z", 
+            "text": "Acleris hippophaeana is a species of moth of the Tortricidae family. It is found in France, Belgium, Germany, Austria, Switzerland, Italy, Slovakia, Romania, Russia and on Corsica. The wingspan is 20-22 mm. Adults are on wing from September to April and in July.", 
+            "pic": "/images/Flowers2.jpg"
+        },
+        { 
+            "id": 3,
+            "author": "Otzzi",
+            "timestamp": "2016-12-28T06:50:00Z", 
+            "text": "The Hidden Light of Objects is composed of ten interlinked short stories; each story is preceded by a loosely related vignette. The stories deal with the capacity of everyday objects to trigger forgotten sensations and memories in the various characters and explore how this experience can affect the present and future. Erika Banerji has stated that Al-Nakib has 'compassion for an old, vanished world and [an] exceptional eye for the bruised landscape of the modern Middle East.'", 
+            "pic": ""
+        },
+        { 
+            "id": 4,
+            "author": "Otzzi",
+            "timestamp": "2017-02-02T02:43:00Z", 
+            "text": "A day after the release of the album, RenownedForSound.com published a four-star review, which praised Goodrem by noting that 'growth and maturity can be notably heard, especially through her vocals'. They also stated, however, that there were some downfalls on the album, such as that some of the songs suffer from the curse of oversinging. Some of these songs included some of her biggest hits: 'Born to Try', 'Not Me, Not I' and 'Predictable'.", 
+            "pic": "https://upload.wikimedia.org/wikipedia/en/9/93/Delta_Goodrem_-_Innocent_Eyes_Acoustic_%28Official_Cover%29.png"
+        },
+        { 
+            "id": 5,
+            "author": "Fischl",
+            "timestamp": "2016-12-29T12:23:00Z", 
+            "text": "Rye is a hamlet and civil parish in the Hart District of Hampshire, England. The hamlet lies near the A287 road between Odiham and Farnham. The hamlet is made up of a large farm and a common. Its nearest town is Hook approximately 4 miles (6 km) away although it lies 2 miles closer to Odiham.", 
+            "pic": "/images/Food2.jpg"
+        },
+        { 
+            "id": 6,
+            "author": "Otzzi",
+            "timestamp": "2017-02-20T10:18:00Z", 
+            "text": "Masked Marvel was sired by Montjeu out of the German mare Waldmark. He is closely related to the 2011 Deutsches Derby winner Waldpark. He was trained throughout his career in Europe by John Gosden at Newmarket, Suffolk. He was bred by the Hertfordshire-based Newsells Park Stud, and was sent as a yearling at Deauville Sales in August 2009 where he was sold for €260,000 to Jeremy Brummitt, the racing manager of Bjorn Neilsen.", 
+            "pic": ""
+        },
+        { 
+            "id": 7,
+            "author": "Jane",
+            "timestamp": "2017-01-01T08:52:00Z", 
+            "text": "Osten made 19 films in India between 1926 and 1939, and A Throw of Dice formed the final part of a trilogy of Indo-German productions by Osten and Indian actor-producer Himanshu Rai, the other two being Prem Sanyas (1925) and Shiraz (1928). After a gap, Osten returned to India, and worked on Bombay Talkies with Rai. During the production of Kangan (The Bangle) in 1939, Osten, a member of the Nazi Party, was arrested by British colonial officials, and was incarcerated until the end of the Second World War.", 
+            "pic": "/images/Food0.jpg"
+        }
+    ]
+}

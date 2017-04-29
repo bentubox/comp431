@@ -1,0 +1,5 @@
+{
+    "netid": "bnt1",
+    "frontend": "hard-rabbits.surge.sh",
+    "backend": "https://dry-escarpment-37510.herokuapp.com/"
+}

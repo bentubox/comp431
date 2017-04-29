@@ -1,0 +1,19 @@
+
+> starter@1.0.0 e2e:base C:\Users\Ben\Documents\GitHub\comp431\hw6
+> mocha --opts e2e/mocha.opts e2e/*.spec.js "--reporter" "xunit"
+
+Posted by bnt1test at Tue, 06 Oct 2015 09:24:16 GMT
+<testsuite name="Mocha Tests" tests="12" failures="0" errors="0" skipped="0" timestamp="Wed, 05 Apr 2017 01:55:41 GMT" time="28.915">
+<testcase classname="Authentication tests: " name="should register a new user" time="2.03"/>
+<testcase classname="Authentication tests: " name="should login as a test user" time="1.179"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should create a new article and validate that it appears in the feed" time="3.011"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should edit an article and verify that the text has changed" time="1.885"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should update the status headline and verify that the text has changed" time="1.275"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should add Follower and verify that the follower count increases by one" time="2.278"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should remove Follower from follower list and verify that the count decreases by one" time="2.121"/>
+<testcase classname="Main page article, headline, and follower tests: " name="should Search for &quot;Only One Article Like This&quot; and verify only one article shows, and verify the author" time="1.258"/>
+<testcase classname="Profile page updating tests: " name="should navigate to profile view, update email, and verify the change" time="1.777"/>
+<testcase classname="Profile page updating tests: " name="should navigate to profile view, update zipcode, and verify the change" time="1.707"/>
+<testcase classname="Profile page updating tests: " name="should navigate to profile view, update password, and verify that a rejection message is received" time="1.878"/>
+<testcase classname="shutdown" name="now" time="3.023"/>
+</testsuite>
