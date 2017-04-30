@@ -10,7 +10,7 @@ const Post = ({user, addArticle, addTextOnlyArticle}) => {
             <textarea id="postArticle" rows={8} cols={100} overflow="scroll" placeholder="Say dumb stuff to your friends." ref={ (node) => textInput = node }></textarea>
             <input type="file" id="postPic" accept="image/*" ref={ (node) => imageInput = node }/> 
             <div id="postButtons">
-                <input type="button" id="postArticlebtn" value="SHARE" onClick={ () => { addTextOnlyArticle(textInput)} } />
+                <input type="button" id="postArticlebtn" value="SHARE" onClick={ () => { addArticle(textInput, imageInput)} } />
                 <input type="reset" value="Cancel" /> 
             </div >
         </form>
