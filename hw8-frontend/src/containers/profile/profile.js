@@ -8,6 +8,7 @@ const Profile = ({ user, status, error, viewMain, updateProfile }) => {
     return (<span>
         <h1>PROFILE</h1>
 		<a onClick={ viewMain }>HOME</a>
+		<img id="loginGoogle" src="/images/google_link.png" onClick={ () => googleLogin() }></img>
 		<div>
 			<input type="file" id="picUpload" accept="image/*" ref={ (node) => imageUpload = node }/>
 			<img id="profilepic" src={user.pic} />

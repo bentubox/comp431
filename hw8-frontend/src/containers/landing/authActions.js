@@ -29,6 +29,20 @@ const logIn = (username, password) => (dispatch) => {
     }
 }
 
+const googleLogIn = (username, password) => (dispatch) => {
+    Actions.resource('GET', 'auth/google')
+    .then( (response) => {
+        if (response.result === "success"){                       
+            ProfileActions.loadProfile(response.username)((action) => {
+                dispatch(action)
+            })
+            dispatch(Actions.dispatchLogin(response.username))
+            dispatch(Actions.toMain())
+            dispatch(Actions.reportSuccess(`Returning as ${response.username}!`))
+        }
+    })
+}
+
 // Login without need for password if session is active.
 const autoLogIn = () => (dispatch) => {
     Actions.resource('GET', 'autologin')
@@ -126,4 +140,4 @@ const logOut = () => (dispatch) => {
     })
 }
 
-export { logIn, autoLogIn, register, logOut }
+export { logIn, googleLogIn, autoLogIn, register, logOut }

@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
-import { logIn } from './authActions'
+import { logIn, googleLogIn } from './authActions'
 
-const Login = ({ status, error, login }) => {
+const Login = ({ status, error, login, googleLogin }) => {
     let usernameInput, passwordInput
     return (<span>
         <p id="statusLanding"><font color={error ? "red" : "lime"}>{status} </font></p>
@@ -12,6 +12,7 @@ const Login = ({ status, error, login }) => {
             <p>Account Name*: <input type="text" id="usrname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required ref={ (node) => usernameInput = node }/></p>
             <p>Password*: <input type="password" id="password" placeholder="Password" required ref={ (node) => passwordInput = node }/></p>
             <input type="button" id="loginbtn" value="LOGIN" onClick={ () => login(usernameInput, passwordInput) }/>
+            <img id="loginGoogle" src="/images/google_button.png" onClick={ () => googleLogin() }></img>
         </form>
     </span>)
 }
@@ -24,6 +25,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         login: (usernameInput, passwordInput) => {
             logIn(usernameInput.value, passwordInput.value)(fn => fn((action) => {
+                dispatch(action)
+            }))
+        },
+        googleLogin: () => {
+            googleLogIn()(fn => fn((action) => {
                 dispatch(action)
             }))
         }

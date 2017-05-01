@@ -29,6 +29,18 @@ span{
 	margin: 10px;
 }
 
+#loginGoogle {
+	border: none;
+	display: inline;
+	margin-left: 20px;
+	padding: 0;
+	vertical-align: middle;
+}
+
+#loginGoogle:active {
+	border: solid yellow;
+}
+
 p {
 	padding: 0px;
 }
