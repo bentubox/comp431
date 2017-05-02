@@ -70,7 +70,14 @@ const toProfile = () => (dispatch) => dispatch({ type: CHANGE_PAGE, location: Pa
 const toMain = () => (dispatch) => dispatch({ type: CHANGE_PAGE, location: Pages.MAIN_PAGE })
 
 // Update error message.
-const reportError = (message) => (dispatch) => dispatch({ type: ERROR, message })
+const reportError = (message) => (dispatch) => {
+  if (message.includes("Unauthorized")){
+    dispatch({ type: ERROR, message })
+    dispatch({ type: CHANGE_PAGE, location: Pages.LANDING })
+  } else {
+    dispatch({ type: ERROR, message })
+  }
+}
 
 // Update status message.
 const reportSuccess = (message) => (dispatch) => dispatch({ type: SUCCESS, message })

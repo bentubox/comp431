@@ -20,6 +20,12 @@ a:hover {
 	color: yellow;
 }
 
+#googleAuthLink{
+	background-color: transparent;
+	margin: 0px;
+	padding: 0px;
+}
+
 div {
 	display: inline;
 }
@@ -32,7 +38,7 @@ span{
 #loginGoogle {
 	border: none;
 	display: inline;
-	margin-left: 20px;
+	margin: 0px;
 	padding: 0;
 	vertical-align: middle;
 }
@@ -264,6 +270,7 @@ input {
 	font-weight: bold;
 	font-size: 24px;
 	background-color: yellow;
+	word-wrap: break-word;
 }
 
 #headerStatus {

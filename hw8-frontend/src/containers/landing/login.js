@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
-import { logIn, googleLogIn } from './authActions'
+import { logIn } from './authActions'
+import { url } from '../../actions'
 
 const Login = ({ status, error, login, googleLogin }) => {
     let usernameInput, passwordInput
@@ -12,13 +13,16 @@ const Login = ({ status, error, login, googleLogin }) => {
             <p>Account Name*: <input type="text" id="usrname" placeholder="Account Name" pattern="\D[a-zA-Z/d]*" required ref={ (node) => usernameInput = node }/></p>
             <p>Password*: <input type="password" id="password" placeholder="Password" required ref={ (node) => passwordInput = node }/></p>
             <input type="button" id="loginbtn" value="LOGIN" onClick={ () => login(usernameInput, passwordInput) }/>
-            <img id="loginGoogle" src="/images/google_button.png" onClick={ () => googleLogin() }></img>
+            <a href={`${url}/auth/google`} id="googleAuthLink"><img id="loginGoogle" src="/images/google_button.png"></img></a>
         </form>
     </span>)
 }
 
 const mapStateToProps = (state) => {
-    return {status: state.message, error: state.error}
+    return {
+        status: state.message,
+        error: state.error
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -28,11 +32,6 @@ const mapDispatchToProps = (dispatch) => {
                 dispatch(action)
             }))
         },
-        googleLogin: () => {
-            googleLogIn()(fn => fn((action) => {
-                dispatch(action)
-            }))
-        }
     }
 }
 

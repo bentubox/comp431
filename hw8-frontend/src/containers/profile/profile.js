@@ -2,13 +2,14 @@ import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
 
 import { viewMain, updateProfile } from './profileActions'
+import { url } from '../../actions'
 
 const Profile = ({ user, status, error, viewMain, updateProfile }) => {
 	let imageUpload, nameInput, emailInput, phoneInput, zipInput, passwordInput, passwordConfirmInput
     return (<span>
         <h1>PROFILE</h1>
 		<a onClick={ viewMain }>HOME</a>
-		<img id="loginGoogle" src="/images/google_link.png" onClick={ () => googleLogin() }></img>
+		<a href={`${url}/auth/google`} id="googleAuthLink"><img id="loginGoogle" src="/images/google_link.png" ></img></a>
 		<div>
 			<input type="file" id="picUpload" accept="image/*" ref={ (node) => imageUpload = node }/>
 			<img id="profilepic" src={user.pic} />
